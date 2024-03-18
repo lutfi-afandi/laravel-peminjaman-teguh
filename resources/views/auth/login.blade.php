@@ -8,7 +8,7 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 
-    <title>Login | E-Certificate</title>
+    <title>Login | E-Peminjaman</title>
 
     <link
         href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin"
@@ -97,19 +97,19 @@
                     <div class="box-row">
 
                         @if (session('status'))
-                            <div class="alert alert-warning alert-dark">
+                            <div class="alert alert-info alert-dark">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 {{ session('status') }}
                             </div>
                         @endif
 
-                        <div class="box-cell col-md-5 bg-warning p-a-4">
+                        <div class="box-cell col-md-5 bg-info p-a-4">
                             <div class="text-xs-center text-md-left">
                                 <a class="px-demo-brand px-demo-brand-lg" href="">
                                     <img src="https://teknokrat.ac.id/wp-content/themes/education_package/education/images/logo.png"
                                         alt="Logo" height="35" />
                                 </a>
-                                <div class="font-size-15 m-t-2">E-Certificate</div>
+                                <div class="font-size-15 m-t-2">E-Peminjaman</div>
                             </div>
                             <ul class="list-group m-t-0 m-b-0 visible-md visible-lg visible-xl">
                                 <li class="list-group-item p-x-0 p-b-0 b-a-0">
@@ -134,16 +134,18 @@
                                 @csrf
                                 <h4 class="m-t-0 m-b-4 text-xs-center font-weight-semibold">Sign In to your Account</h4>
 
-                                <fieldset class="page-signin-form-group form-group form-group-lg @error('email') has-error @enderror">
+                                <fieldset
+                                    class="page-signin-form-group form-group form-group-lg @error('email') has-error @enderror">
                                     <div class="page-signin-icon text-muted"><i class="ion-person"></i></div>
-                                    <input type="text" value="{{ old('email') }}" name="email" class="page-signin-form-control form-control"
-                                        placeholder="Username">
+                                    <input type="text" value="{{ old('email') }}" name="email"
+                                        class="page-signin-form-control form-control" placeholder="Username">
                                     @error('email')
                                         <div class="form-message">{{ $message }}</div>
                                     @enderror
                                 </fieldset>
 
-                                <fieldset class="page-signin-form-group form-group form-group-lg @error('password') has-error @enderror">
+                                <fieldset
+                                    class="page-signin-form-group form-group form-group-lg @error('password') has-error @enderror">
                                     <div class="page-signin-icon text-muted"><i class="ion-asterisk"></i></div>
                                     <input type="password" name="password" class="page-signin-form-control form-control"
                                         placeholder="Password">
@@ -152,7 +154,7 @@
                                     @enderror
                                 </fieldset>
 
-                                <button type="submit" class="btn btn-block btn-lg btn-warning m-t-3">Sign In</button>
+                                <button type="submit" class="btn btn-block btn-lg btn-info m-t-3">Sign In</button>
                             </form>
 
                         </div>

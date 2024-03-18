@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Barang;
+use App\Models\Gedung;
+use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Auth;
 use Hash;
@@ -21,17 +24,36 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        if(Auth::user()->level=='admin' || Auth::user()->level == 'baak'){
+        if (Auth::user()->level == 'admin' || Auth::user()->level == 'baak') {
             $title = "Halaman Home";
+            // dd($this->menu());
+            $data = $this->menu();
             $halaman = 'admin.home.index';
-        }else{
+        } else {
             $title = "Halaman Mahasiswa";
+            $data = '';
             $halaman = 'mahasiswa.home.index';
         }
 
         return view($halaman, compact(
             'title',
+            'data'
         ));
+    }
+
+    public function menu()
+    {
+        $jumalhRuangan = Ruangan::count();
+        $jumalhGedung = Gedung::count();
+        $jumalhBarang = Barang::count();
+        $jml_nominal_aset = Barang::sum('harga_perolehan');
+        $data = [
+            'jml_ruangan'   => $jumalhRuangan,
+            'jml_gedung'   => $jumalhGedung,
+            'jml_aset'   => $jumalhBarang,
+            'jml_nominal_aset'  => $jml_nominal_aset
+        ];
+        return $data;
     }
 
     /**
@@ -41,7 +63,6 @@ class HomeController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -52,9 +73,8 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -63,7 +83,6 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -74,7 +93,6 @@ class HomeController extends Controller
      */
     public function edit($id)
     {
-        
     }
 
     /**
@@ -86,7 +104,6 @@ class HomeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
     }
 
     /**
@@ -100,31 +117,33 @@ class HomeController extends Controller
         //
     }
 
-    public function perbarui_password() {
+    public function perbarui_password()
+    {
         $title = "Perbarui Password";
-        return view('auth.perbarui-password',compact('title'));
+        return view('auth.perbarui-password', compact('title'));
     }
 
-    public function updatepw(Request $request) {
+    public function updatepw(Request $request)
+    {
 
         if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
             // The passwords matches
-            return redirect()->back()->with("error","Password Lama Salah.");
+            return redirect()->back()->with("error", "Password Lama Salah.");
         }
-            
-        if(strcmp($request->get('current-password'), $request->get('new_password')) == 0){
+
+        if (strcmp($request->get('current-password'), $request->get('new_password')) == 0) {
             //Current password and new password are same
-            return redirect()->back()->with("error","Masukan Password Baru.");
+            return redirect()->back()->with("error", "Masukan Password Baru.");
         }
-        if(!(strcmp($request->get('new_password'), $request->get('new_password_confirm'))) == 0){
+        if (!(strcmp($request->get('new_password'), $request->get('new_password_confirm'))) == 0) {
             //New password and confirm password are not same
-            return redirect()->back()->with("error","Ulangi Password Baru.");
+            return redirect()->back()->with("error", "Ulangi Password Baru.");
         }
 
         $user = User::findorfail(Auth::user()->id);
         $user->password = Hash::make($request->get('new_password'));
         $user->save();
-            
-        return redirect()->back()->with("success","Password changed successfully !");
+
+        return redirect()->back()->with("success", "Password changed successfully !");
     }
 }

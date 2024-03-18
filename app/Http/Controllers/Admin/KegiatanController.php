@@ -31,10 +31,10 @@ class KegiatanController extends Controller
     public function create()
     {
         $judul = "Tambah Data Kegiatan";
-        $view = view('admin.kegiatan.create',compact('judul'))->render();
+        $view = view('admin.kegiatan.create', compact('judul'))->render();
         return response()->json([
-            'success' => true, 
-            'html'=> $view
+            'success' => true,
+            'html' => $view
         ]);
     }
 
@@ -50,7 +50,7 @@ class KegiatanController extends Controller
             'nama_kegiatan' => $request->nama_kegiatan,
             'deskripsi_kegiatan' => $request->deskripsi,
         ]);
-        return back()->with(['msg' => 'Berhasil Menambah Data','class'=>'alert-success']);
+        return back()->with(['msg' => 'Berhasil Menambah Data', 'class' => 'alert-success']);
     }
 
     /**
@@ -62,11 +62,11 @@ class KegiatanController extends Controller
     public function show($id)
     {
         $judul = "Hapus Kegiatan";
-        $dataKegiatan = Kegiatan::where("id",$id)->first();
-        $view = view('admin.kegiatan.delete',compact('judul','dataKegiatan'))->render();
+        $dataKegiatan = Kegiatan::where("id", $id)->first();
+        $view = view('admin.kegiatan.delete', compact('judul', 'dataKegiatan'))->render();
         return response()->json([
-            'success' => true, 
-            'html'=> $view
+            'success' => true,
+            'html' => $view
         ]);
     }
 
@@ -79,11 +79,11 @@ class KegiatanController extends Controller
     public function edit($id)
     {
         $judul = "Edit Data Kegiatan";
-        $dataKegiatan = Kegiatan::where("id",$id)->first();
-        $view = view('admin.kegiatan.update',compact('judul','dataKegiatan'))->render();
+        $dataKegiatan = Kegiatan::where("id", $id)->first();
+        $view = view('admin.kegiatan.update', compact('judul', 'dataKegiatan'))->render();
         return response()->json([
-            'success' => true, 
-            'html'=> $view
+            'success' => true,
+            'html' => $view
         ]);
     }
 
@@ -96,11 +96,11 @@ class KegiatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Kegiatan::where("id",$id)->update([
+        Kegiatan::where("id", $id)->update([
             'nama_kegiatan' => $request->nama_kegiatan,
             'deskripsi_kegiatan' => $request->deskripsi,
         ]);
-        return back()->with(['msg' => 'Berhasil Merubah Data','class'=>'alert-success']);
+        return back()->with(['msg' => 'Berhasil Merubah Data', 'class' => 'alert-success']);
     }
 
     /**
@@ -111,7 +111,7 @@ class KegiatanController extends Controller
      */
     public function destroy($id)
     {
-        Kegiatan::where("id",$id)->delete();
-        return back()->with(['msg' => 'Berhasil Menghapus Data','class'=>'alert-success']);
+        Kegiatan::where("id", $id)->delete();
+        return back()->with(['msg' => 'Berhasil Menghapus Data', 'class' => 'alert-success']);
     }
 }

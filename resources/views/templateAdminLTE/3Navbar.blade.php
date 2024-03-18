@@ -11,7 +11,7 @@
 
     <div class="collapse navbar-collapse" id="px-demo-navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-            
+
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -21,11 +21,14 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="{{ route('perbarui_password') }}"><i class="dropdown-icon fa fa-key"></i>&nbsp;&nbsp;Change Password</a>
+                        <a href="{{ route('perbarui_password') }}"><i
+                                class="dropdown-icon fa fa-key"></i>&nbsp;&nbsp;Change Password</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i
+                                class="dropdown-icon fa fa-power-off"></i>&nbsp;&nbsp;Log
                             Out</a>
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

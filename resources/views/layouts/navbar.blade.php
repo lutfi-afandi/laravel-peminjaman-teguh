@@ -18,10 +18,13 @@
                         <a class="nav-link" href="#">Link</a>
                     </li> -->
                 </ul>
-                <form class="d-flex" role="search" method="get" action="{{ route('home') }}">
-                    <input class="form-control me-2" name="search" value="{{ request('search') }}" type="search"
+
+                <form class="d-flex" role="search" method="get" action="#">
+                    {{-- <input class="form-control me-2" name="search" value="{{ request('search') }}" type="search"
                         placeholder="Pencarian game" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button>
+                    <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button> --}}
+                    <a href="ok" class="btn border-0 text-white">{{ Auth::user()->name }}</a>
+                    {{-- <button class="btn btn-outline-success" type="submit"><i class="fa fa-search"></i></button> --}}
                 </form>
             </div>
         </div>

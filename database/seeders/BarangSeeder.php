@@ -17,11 +17,13 @@ class BarangSeeder extends Seeder
         DB::table('barangs')->insert(
             [
                 [
-                    'nama_barang'  => 'Barang 1',
-                    'qty'  => 1,
-                    'harga_barang'  => 1000,
+                    'kode'  => 'B001',
+                    'nama'  => 'Barang 1',
+                    'jumlah'  => 1,
+                    'harga'  => 1000,
                     'deskripsi' => 'test',
                     'kategori_id'  => 1,
+                    'ruangan_id'  => 1,
                 ],
             ]
         );

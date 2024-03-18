@@ -47,7 +47,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function mahasiswa() 
+    public function mahasiswa()
     {
         return $this->belongsTo(Mahasiswa::class, 'user_id', "id");
     }

@@ -28,9 +28,9 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Route::get('/perbarui-password', [HomeController::class,'perbarui_password'])->middleware(['auth'])->name('perbarui_password');
-Route::post('/perbarui-password/updatepw', [HomeController::class,'updatepw'])->middleware(['auth'])->name('perbaruipassword_new');
+Route::get('/perbarui-password', [HomeController::class, 'perbarui_password'])->middleware(['auth'])->name('perbarui_password');
+Route::post('/perbarui-password/updatepw', [HomeController::class, 'updatepw'])->middleware(['auth'])->name('perbaruipassword_new');
 Route::resource('/dashboard', HomeController::class)->middleware(['auth'])->names('home');
 
-require __DIR__.'/admin.php';
-require __DIR__.'/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/auth.php';

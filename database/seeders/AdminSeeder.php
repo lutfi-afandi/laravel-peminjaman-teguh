@@ -23,6 +23,13 @@ class AdminSeeder extends Seeder
                     'password'  => bcrypt('rahasia'),
                     'level'  => 'admin',
                 ],
+                [
+                    'username'  => 'mahasiswa',
+                    'name'  => 'mahasiswa',
+                    'email' => 'mahasiswa@gmail.com',
+                    'password'  => bcrypt('rahasia'),
+                    'level'  => 'mahasiswa',
+                ],
             ]
         );
     }

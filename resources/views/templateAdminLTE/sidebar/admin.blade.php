@@ -1,3 +1,10 @@
+<li class="px-nav-item {{ request()->is('master/peminjaman*') ? 'active' : '' }}">
+    <a href="{{ route('admin.peminjaman.index') }}">
+        <span class="px-nav-label">
+            <i class="dropdown-icon px-nav-icon fa-brands fa-stack-overflow"></i>
+            Peminjaman</span>
+    </a>
+</li>
 <li class="px-nav-item px-nav-dropdown {{ request()->is('master*') ? 'px-open' : '' }}">
     <a href="javascript:;"><i class="px-nav-icon fa fa-hdd-o"></i>
         <span class="px-nav-label">Master Data</span>

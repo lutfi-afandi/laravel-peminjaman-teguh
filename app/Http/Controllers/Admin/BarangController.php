@@ -51,22 +51,25 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);    
+        $tgl_perolehan = date('Y-m-d', strtotime($request->tgl_perolehan));
+        // dd($tgl_perolehan);
+
         $validatedData  = $request->validate([
             'nama'     => 'required|max:255',
             'kode'     => 'required|unique:gedungs',
-            "kategori_id" => '',
+            "kategori_id" => 'required',
             "tgl_perolehan" => '',
             "ruangan_id" => 'required',
             "penanggung_jawab" => 'required',
             "harga_perolehan" => '',
             "jumlah" => '',
             "kondisi" => 'required',
-            "status" => '',
+            "status" => 'required',
             "deskripsi" => 'required',
-
             'foto' => 'image|file|max:2048',
         ]);
+
+        $validatedData['tgl_perolehan'] = $tgl_perolehan;
         if ($request->file('foto')) {
             $validatedData['foto'] = $validatedData['kode'] . "-" . date('His') . "." . $request->file('foto')->getClientOriginalExtension();
             $request->file('foto')->storeAs('public/barangs', $validatedData['foto']);

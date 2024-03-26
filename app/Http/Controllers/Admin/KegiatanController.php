@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kegiatan;
 
+use Illuminate\Support\Facades\Auth as Auth;
+
 class KegiatanController extends Controller
 {
     /**
@@ -13,6 +15,18 @@ class KegiatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(Request $request)
+    {
+        // dd(Auth::user());
+        // echo 'astaghfirullah';
+        // die;
+        // dd(auth()->user());
+        // dd(Auth::user()->level == 'admin');
+        // if (Auth::user()->level !== 'admin') {
+        //     abort(403);
+        // }
+    }
+
     public function index()
     {
         $title = "Data Kegiatan";

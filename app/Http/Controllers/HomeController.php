@@ -26,7 +26,7 @@ class HomeController extends Controller
     {
         if (Auth::user()->level == 'admin' || Auth::user()->level == 'baak') {
             $title = "Halaman Home";
-            // dd($this->menu());
+            // dd(Auth::user()->level);
             $data = $this->menu();
             $halaman = 'admin.home.index';
         } else {

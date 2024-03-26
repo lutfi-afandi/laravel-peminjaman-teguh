@@ -49,7 +49,7 @@
                         <div class="row">
                             <div class="col-md-6  @error('kategori_id') has-error @enderror">
                                 <label for="kategori_id" class="control-label">Kategori</label>
-                                <select name="kategori_id" id="kategori_id" class="form-control">
+                                <select name="kategori_id" id="kategori_id" class="form-control" required>
                                     <option value="">-Kategori-</option>
                                     @foreach ($kategoris as $kat)
                                         <option value="{{ $kat->id }}"

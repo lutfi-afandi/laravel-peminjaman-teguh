@@ -26,8 +26,6 @@
     <!-- Theme -->
     <link href="{{ asset('TemplatePixel/css/themes/silver.min.css') }}" rel="stylesheet" type="text/css">
 
-
-
     <!-- holder.js -->
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/holder/2.9.0/holder.js"></script>
 

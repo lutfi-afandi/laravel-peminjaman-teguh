@@ -1,9 +1,8 @@
 @extends('templateAdminLTE/home')
-@section('sub-breadcrumb', 'Data Kegiatan')
+@section('sub-breadcrumb', 'Data Peminjaman')
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            {{-- {{ auth()->user()->username }} --}}
             <div id="respon">
                 @if (session()->has('msg'))
                     <div class="alert {{ session('class') }} alert-dark">
@@ -15,18 +14,14 @@
             <div class="panel">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-sm-6 panel-title">Data Kegiatan</div>
+                        <div class="col-sm-6 panel-title">Data Peminjaman</div>
                         <div class="col-sm-6 card-tools text-right">
-
-                            <a href="javascript:;" class="btn btn-xs btn-primary btn-add">
-                                <i class="fa fa-plus"></i> Tambah Data
-                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="panel-body">
-                    <div class="table-default">
-                        @include('admin.kegiatan.table')
+                    <div class="table-primary">
+                        @include('admin.peminjaman.table')
                     </div>
                 </div>
             </div>
@@ -34,6 +29,8 @@
     </div>
 
     <div id="tempat-modal"></div>
+
+
 
     @push('js')
         <script>
@@ -46,33 +43,11 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                $(document).on("click", ".btn-add", function() {
-                    var url = "{{ route('admin.kegiatan.create') }}";
-                    $.ajax({
-                            method: "GET",
-                            url: url,
-                        })
-                        .done(function(data) {
-                            $('#tempat-modal').html(data.html);
-                            $('#modal_show').modal('show');
-                        })
-                })
-                $(document).on("click", ".btn-update", function() {
-                    var id = $(this).attr("data-id");
-                    var url = "{{ route('admin.kegiatan.edit', ':id_data') }}";
-                    url = url.replace(":id_data", id);
-                    $.ajax({
-                            method: "GET",
-                            url: url,
-                        })
-                        .done(function(data) {
-                            $('#tempat-modal').html(data.html);
-                            $('#modal_show').modal('show');
-                        })
-                })
+
                 $(document).on("click", ".btn-delete", function() {
                     var id = $(this).attr("data-id");
-                    var url = "{{ route('admin.kegiatan.show', ':id_data') }}";
+                    // console.log(id);
+                    var url = "{{ route('admin.peminjaman.show', ':id_data') }}";
                     url = url.replace(":id_data", id);
                     $.ajax({
                             method: "GET",
@@ -81,6 +56,40 @@
                         .done(function(data) {
                             $('#tempat-modal').html(data.html);
                             $('#modal_show').modal('show');
+                        })
+                })
+
+                $(document).on("click", ".btn-detail", function() {
+                    var id = $(this).attr("data-id");
+                    // alert(id);
+                    var url = "{{ route('admin.peminjaman.show', ':id_data') }}";
+                    url = url.replace(":id_data", id);
+                    $.ajax({
+                            method: "GET",
+                            url: url,
+                        })
+                        .done(function(data) {
+                            $('#tempat-modal').html(data.html);
+                            $('#modal_detail').modal('show');
+                        })
+                })
+
+                $(document).on("click", ".btn-confirm", function() {
+                    var id = $(this).attr("data-id");
+                    var konfrimasi = $(this).attr("data-con");
+                    // alert(konfrimasi);
+                    var url = "{{ route('admin.peminjaman.update', ':id_data') }}";
+                    url = url.replace(":id_data", id);
+                    $.ajax({
+                            method: "PUT",
+                            url: url,
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                konfirmasi: konfrimasi,
+                            }
+                        })
+                        .done(function(data) {
+                            location.reload()
                         })
                 })
             });

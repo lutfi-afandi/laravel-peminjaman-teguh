@@ -9,6 +9,10 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Mahasiswa\BarangController;
+use App\Http\Controllers\Mahasiswa\DetailpeminjamanController;
+use App\Http\Controllers\Mahasiswa\PeminjamanController;
+use App\Http\Controllers\Mahasiswa\RuanganController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -54,6 +58,28 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/aset', [BarangController::class, 'index'])->name('aset');
+
+    Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan');
+    Route::get('/ruangan/get', [RuanganController::class, 'get'])->name('ruangan.get');
+    Route::Resource('/ruangan', RuanganController::class)->names('mahasiswa.ruangan');
+
+    Route::Resource('/barang', BarangController::class)->names('mahasiswa.barang');
+    Route::get('/aset/get', [BarangController::class, 'get']);
+    Route::get('/barang/peminjaman/{id}', [BarangController::class, 'daftar_peminjaman'])->name('mahasiswa.barang.daftar');
+    Route::get('/barang/detailpinjam/{id}', [BarangController::class, 'detailpinjam'])->name('mahasiswa.barang.detailpinjam');
+
+    Route::resource('/detailpeminjaman', DetailpeminjamanController::class)->names('mahasiswa.detailpeminjaman');
+    Route::get('/detailpeminjaman/add/', [DetailpeminjamanController::class, 'index'])->name('mahasiswa.detailpeminjaman.add');
+
+    Route::Resource('/peminjaman', PeminjamanController::class)->names('mahasiswa.peminjaman');
+    Route::get('/peminjaman/getbarang/{id}', [PeminjamanController::class, 'getbarang'])->name('mahasiswa.peminjaman.getbarang');
+    Route::get('/peminjaman/hapusdetail/{id}', [PeminjamanController::class, 'hapusdetail'])->name('mahasiswa.peminjaman.hapusdetail');
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });

@@ -20,4 +20,9 @@ class Ruangan extends Model
     {
         return $this->belongsTo(Unitkerja::class, 'unit_kerja_id', 'id');
     }
+
+    public function ruangan()
+    {
+        return $this->belongsTo(Peminjaman::class);
+    }
 }

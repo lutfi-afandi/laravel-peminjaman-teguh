@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Mahasiswa::class, 'user_id', "id");
     }
+
+    public function peminjaman_barang()
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
 }

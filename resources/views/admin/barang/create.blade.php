@@ -64,7 +64,8 @@
                             <div class="col-md-6  @error('tgl_perolehan') has-error @enderror">
                                 <label for="tgl_perolehan" class="control-label">Tanggal Perolehan</label>
                                 <input type="text" class="form-control" id="tgl_perolehan" name="tgl_perolehan"
-                                    placeholder="Tanggal Perolehan" required value="{{ old('tgl_perolehan') }}">
+                                    placeholder="Tanggal Perolehan" required
+                                    value="{{ old('tgl_perolehan', date('m/d/Y')) }}" autocomplete="off">
                                 @error('tgl_perolehan')
                                     <small class="form-message">
                                         {{ $message }}

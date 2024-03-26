@@ -11,6 +11,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $('#datatables').dataTable();
+    $('#datatables2').dataTable();
 </script>
 <!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

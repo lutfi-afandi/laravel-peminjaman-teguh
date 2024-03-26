@@ -13,9 +13,10 @@
             <th>Status</th>
         </tr>
     </thead>
-    <tbody> @php
-        // dd($dataBarang);
-    @endphp
+    <tbody>
+        @php
+            // dd($dataBarang);
+        @endphp
         {{-- {{ dd($dataBarang) }} --}}
         @foreach ($dataBarang as $barang)
             <tr class="odd gradeX ">

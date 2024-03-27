@@ -29,12 +29,24 @@
                     $bg = 'info';
                 }
             @endphp
-            <div class="badge bg-{{ $bg }}">Status : {{ $konfirmasi }}</div>
+            <div class="badge bg-{{ $bg }} " style="margin-bottom: 4px !important; margin-top: 4px !important">
+                Status : {{ $konfirmasi }}
+            </div><br>
             <div class="badge bg-primary btn btn-detail1" data-id="{{ $peminjaman->id }}"><i class="fa fa-eye"></i>
                 detail
             </div>
             <a href="{{ route('mahasiswa.peminjaman.show', $peminjaman->id) }}" class="badge bg-success btn btn-add"
-                data-id="{{ $peminjaman->id }}"><i class="fa fa-plus"></i></a>
+                data-id="{{ $peminjaman->id }}"><i class="fa fa-plus"></i> tambah</a>
+
+            <form action="{{ route('mahasiswa.peminjaman.destroy', $peminjaman->id) }}" method="post"
+                style="display: inline-block">
+                @csrf
+                @method('delete')
+                <button type="submit" class="badge bg-danger"><i class="fa fa-times"></i> hapus</button>
+                {{-- <a href="#" type="button" class="badge bg-danger btn btn-delete"
+                    data-id="{{ $peminjaman->id }}"><i class="fa fa-times"></i>
+                    hapus</a> --}}
+            </form>
         </div>
 
 
@@ -63,7 +75,6 @@
 
     </div>
 @endforeach
-
 
 <script>
     $('.btn-detail1').click(function(e) {

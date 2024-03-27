@@ -103,7 +103,8 @@ class PeminjamanController extends Controller
 
     public function destroy($id)
     {
-        //
+        Peminjaman::where("id", $id)->delete();
+        return back()->with(['msg' => 'Berhasil Menghapus Data', 'class' => 'alert-success']);
     }
 
 

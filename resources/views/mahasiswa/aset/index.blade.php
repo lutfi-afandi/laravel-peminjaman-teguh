@@ -5,18 +5,19 @@
         <div class="col-md-6 col-md-offset-3">
             <h1 class="text-center m-b-0">Daftar Peminjaman</h1>
             <p class="text-center">Pilih Tanggal Peminjaman</p>
-            {{-- <form action="#" method="post">
-                <div class="input-group m-b-2">
-                    <input type="text" class="form-control" id="tgl_pinjam" placeholder="Search for...">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-success"><i class="fa fa-search"></i></button>
-                    </span>
-                </div>
-            </form> --}}
+
         </div>
     </div>
     <div class="row bg-white">
         <div class="col-md-8 col-md-offset-2">
+            <div id="respon">
+                @if (session()->has('msg'))
+                    <div class="alert {{ session('class') }} alert-dark">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        {{ session('msg') }}
+                    </div>
+                @endif
+            </div>
             <div class="panel panel-black">
                 <div class="panel-heading">
                     <span class="panel-title">Riwayat Peminjaman : <strong>{{ auth()->user()->name }}</strong></span>

@@ -60,6 +60,9 @@
                             $('#modal_show').modal('show');
                         })
                 })
+
+
+
             });
         </script>
     @endpush

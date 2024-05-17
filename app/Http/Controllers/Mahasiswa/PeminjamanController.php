@@ -8,6 +8,7 @@ use App\Models\Detailpeminjaman;
 use App\Models\Peminjaman;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PeminjamanController extends Controller
 {
@@ -41,16 +42,21 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
+        // dd(date('Y-m-d H:i', strtotime($request->waktu_peminjaman)));
         $dataValid =  $request->validate([
             'ruangan_id' => 'required',
-            'tgl_peminjaman' => 'required|date',
-            'jam_peminjaman' => 'required',
-            'tgl_pengembalian' => 'required|date',
-            'jam_pengembalian' => 'required',
             'kegiatan' => 'required',
+            'waktu_peminjaman' => 'required',
+            'waktu_pengembalian' => 'required',
+            // 'jam_peminjaman' => 'required',
+            // 'jam_pengembalian' => 'required',
         ]);
         $dataValid['user_id'] = auth()->user()->id;
-        // dd($dataValid);
+        $dataValid['waktu_peminjaman'] = date('Y-m-d H:i', strtotime($request->waktu_peminjaman));
+        $dataValid['waktu_pengembalian'] = date('Y-m-d H:i', strtotime($request->waktu_pengembalian));
+        // $dataValid['jam_peminjaman'] = date('H:i', strtotime($request->jam_peminjaman));
+        // $dataValid['jam_pengembalian'] = date('H:i', strtotime($request->jam_pengembalian));
+        
         Peminjaman::create($dataValid);
 
         return response()->json(['message' => 'Data peminjaman berhasil disimpan'], 200);
@@ -62,8 +68,8 @@ class PeminjamanController extends Controller
         $title = 'Detail peminjaman barang';
         $barangs = Barang::with('ruangan.gedung')->get();
 
-        $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang'])
-            ->where('id', $id)
+        $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang','ruangan'])
+            ->where('id', decrypt($id))
             ->first();
         // dd($dataPeminjaman->kegiatan);
         return view('mahasiswa.aset.tambahdetail', compact(
@@ -117,4 +123,21 @@ class PeminjamanController extends Controller
             'success' => true,
         ]);
     }
+
+    
+
+public function PrintPdf($id)
+{
+    try {
+        $title = 'Cetak Peminjaman Aset';
+        $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang'])
+            ->where('id', decrypt($id))
+            ->firstOrFail();
+
+        return view('mahasiswa.aset.cetakpdf', compact('title', 'dataPeminjaman'));
+    } catch (ModelNotFoundException $e) {
+        abort(404);
+    }
+}
+
 }

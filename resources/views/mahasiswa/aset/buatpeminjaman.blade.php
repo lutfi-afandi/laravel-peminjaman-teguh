@@ -31,26 +31,26 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-6">
                             <fieldset class="form-group">
-                                <label for="tgl_peminjaman">Tanggal Mulai</label>
-                                <input type="date" name="tgl_peminjaman" id="tgl_peminjaman" class="form-control"
-                                    required>
+                                <label for="waktu_peminjaman">Waktu Peminjaman</label>
+                                <input type="datetime-local" name="waktu_peminjaman" id="waktu_peminjaman"
+                                    class="form-control" required>
                             </fieldset>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <fieldset class="form-group">
-                                <label for="jam_peminjaman">Jam Mulai</label>
-                                <input type="time" name="jam_peminjaman" id="jam_peminjaman" class="form-control"
-                                    required>
+                                <label for="waktu_pengembalian">Sampai Dengan</label>
+                                <input type="datetime-local" name="waktu_pengembalian" id="waktu_pengembalian"
+                                    class="form-control" required>
                             </fieldset>
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-8">
                             <fieldset class="form-group">
-                                <label for="tgl_pengembalian">Tanggal Selesai</label>
-                                <input type="date" name="tgl_pengembalian" id="tgl_pengembalian" class="form-control"
+                                <label for="jam_peminjaman">Jam Peminjaman</label>
+                                <input type="time" name="jam_peminjaman" id="jam_peminjaman" class="form-control"
                                     required>
                             </fieldset>
                         </div>
@@ -62,12 +62,12 @@
                             </fieldset>
 
                         </div>
-                    </div>
+                    </div> --}}
 
-            </div>
-            <div class="modal-footer">
+                </div>
+                <div class="modal-footer">
                 <button class="btn btn-primary btn-store"><i class="fa fa-save"></i> Simpan</button>
-                </form>
+            </form>
             </div>
 
         </div>
@@ -80,24 +80,25 @@
     $('.btn-store').click(function(e) {
         e.preventDefault();
 
-        var tgl_peminjaman = $('#tgl_peminjaman').val();
-        var jam_peminjaman = $('#jam_peminjaman').val();
-        var tgl_pengembalian = $('#tgl_pengembalian').val();
-        var jam_pengembalian = $('#jam_pengembalian').val();
+        var waktu_peminjaman = $('#waktu_peminjaman').val();
+        var waktu_pengembalian = $('#waktu_pengembalian').val();
+        // var jam_peminjaman = $('#jam_peminjaman').val();
+        // var jam_pengembalian = $('#jam_pengembalian').val();
         var ruangan_id = $('#ruangan_id').val();
         var kegiatan = $('#kegiatan').val();
 
-        if (tgl_peminjaman && jam_peminjaman && tgl_pengembalian && jam_pengembalian && kegiatan) {
+        // if (tgl_peminjaman && jam_peminjaman && tgl_pengembalian && jam_pengembalian && kegiatan) {
+        if (waktu_peminjaman && waktu_pengembalian && kegiatan) {
             $.ajax({
                 url: "{{ route('mahasiswa.peminjaman.store') }}",
                 type: 'POST',
                 data: {
                     _token: '{{ csrf_token() }}',
                     ruangan_id: ruangan_id,
-                    tgl_peminjaman: tgl_peminjaman,
-                    jam_peminjaman: jam_peminjaman,
-                    tgl_pengembalian: tgl_pengembalian,
-                    jam_pengembalian: jam_pengembalian,
+                    waktu_peminjaman: waktu_peminjaman,
+                    waktu_pengembalian: waktu_pengembalian,
+                    // jam_peminjaman: jam_peminjaman,
+                    // jam_pengembalian: jam_pengembalian,
                     kegiatan: kegiatan
                 },
                 success: function(response) {

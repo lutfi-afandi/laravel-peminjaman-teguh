@@ -106,7 +106,7 @@
                         <div class="box-cell col-md-5 bg-info p-a-4">
                             <div class="text-xs-center text-md-left">
                                 <a class="px-demo-brand px-demo-brand-lg" href="">
-                                    <img src="https://teknokrat.ac.id/wp-content/themes/education_package/education/images/logo.png"
+                                    <img src="{{ asset('img/logo.png') }}"
                                         alt="Logo" height="35" />
                                 </a>
                                 <div class="font-size-15 m-t-2">E-Peminjaman</div>

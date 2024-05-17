@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Barang;
+use App\Models\Gedung;
 use App\Models\Kategori;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BarangController extends Controller
 {
@@ -25,6 +27,7 @@ class BarangController extends Controller
             'dataBarang'
         ));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -116,6 +119,8 @@ class BarangController extends Controller
         ));
     }
 
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -152,6 +157,73 @@ class BarangController extends Controller
         Barang::where('id', $id)->update($validatedData);
         // dd();
         return redirect()->route('admin.barang.index')->with(['msg' => 'Berhasil Mengubah Data', 'class' => 'alert-success']);
+    }
+
+    public function filter(Request $request)
+    {
+        $title = "Filter Barang";
+        $dataGedung = Gedung::all();
+
+        // Jika ada 'ruangan_id' yang diterima dari permintaan
+        if ($request->has('ruangan_id')) {
+            // Ambil data barang berdasarkan ruangan yang dipilih
+            $dataBarang = Barang::where('ruangan_id', $request->ruangan_id)
+                ->get();
+
+            // Ubah nilai kondisi dan status 
+            foreach ($dataBarang as $barang) {
+                // Ubah nilai kondisi
+                switch ($barang->kondisi) {
+                    case 1:
+                        $barang->kondisi = 'Baik';
+                        break;
+                    case 2:
+                        $barang->kondisi = 'Rusak Ringan';
+                        break;
+                    default:
+                        $barang->kondisi = 'Rusak Berat';
+                        break;
+                }
+
+                // Ubah nilai status
+                switch ($barang->status) {
+                    case 1:
+                        $barang->status = 'Aktif';
+                        break;
+                    case 2:
+                        $barang->status = 'Dihapuskan';
+                        break;
+                    default:
+                        $barang->status = 'Diperbaiki';
+                        break;
+                }
+            }
+
+            // Kembalikan data barang dalam bentuk JSON
+            return response()->json($dataBarang);
+        }
+
+        return view('admin.barang.filterBarang', compact(
+            'title',
+            'dataGedung'
+        ));
+    }
+
+    public function ruanganByGedung($gedung_id)
+    {
+        $dataRuangan = Ruangan::where('gedung_id', $gedung_id)->get();
+        return response()->json($dataRuangan);
+    }
+
+    public function QrCode($ruangan_id)
+    {
+        $title = "QR Code Barang";
+        $dataBarang = Barang::where('ruangan_id', $ruangan_id)
+                ->get();
+        return view('admin.barang.QrCode', compact(
+            'title',
+            'dataBarang'
+        ));
     }
 
     /**

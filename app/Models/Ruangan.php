@@ -25,4 +25,11 @@ class Ruangan extends Model
     {
         return $this->belongsTo(Peminjaman::class);
     }
+
+    public function pinjam_ruang()
+    {
+        return $this->belongsTo(PeminjamanRuangan::class);
+    }
+
+    
 }

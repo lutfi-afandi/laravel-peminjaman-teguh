@@ -1,8 +1,7 @@
 <nav class="navbar px-navbar">
     <div class="navbar-header ">
         <a class="navbar-brand" style="padding:5px 5px 0px 0px" href="{{ route('home.index') }}">
-            <img src="https://teknokrat.ac.id/wp-content/themes/education_package/education/images/logo.png"
-                alt="Logo" height="40" />
+            <img src="{{ asset('img/logo.png') }}" alt="Logo" height="40" />
         </a>
     </div>
 
@@ -16,10 +15,19 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                     aria-expanded="false">
-                    <img src="{{ asset('TemplatePixel/demo/avatars/1.jpg') }}" alt="" class="px-navbar-image">
+                    @if (auth()->user()->foto)
+                        <img src="{{ asset('storage/users/' . auth()->user()->foto) }}" alt=""
+                            class="px-navbar-image">
+                    @else
+                        <!-- Ganti URL ini dengan URL foto default dari Unsplash -->
+                        <img src="{{ asset('img/tekno.png') }}" alt="" class="px-navbar-image">
+                    @endif
                     <span class="hidden-md">{{ auth()->user()->name }}</span>
                 </a>
                 <ul class="dropdown-menu">
+                    <li>
+                        <a href="{{ route('profil') }}"><i class="dropdown-icon fa fa-person"></i>&nbsp;&nbsp;Profil</a>
+                    </li>
                     <li>
                         <a href="{{ route('perbarui_password') }}"><i
                                 class="dropdown-icon fa fa-key"></i>&nbsp;&nbsp;Change Password</a>

@@ -41,6 +41,9 @@
 @endsection
 @push('js')
     <script>
+        setTimeout(function() {
+            document.getElementById('respon').innerHTML = '';
+        }, 2000);
         $(document).ready(function() {
             list_peminjaman();
         });

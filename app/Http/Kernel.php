@@ -64,5 +64,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'limit' => \App\Http\Middleware\Limit::class,
+        // 'auth_admin' => \App\Http\Middleware\RedirectBasedOnRole::class, //custom authorisasi
+
+        'auth_baak' => \App\Http\Middleware\RedirectBasedOnRole::class, //custom authorisasi untuk baak dan admin
+        'auth_admin' => \App\Http\Middleware\IsAuthAdmin::class, //custom authorisasi admin only
+        'auth_mahasiswa' => \App\Http\Middleware\IsAuthMahasiswa::class, //custom authorisasi mahasiswa only
     ];
 }

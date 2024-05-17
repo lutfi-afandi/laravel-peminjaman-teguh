@@ -20,6 +20,11 @@
                             <a href="{{ route('admin.barang.create') }}" class="btn btn-xs btn-primary btn-add">
                                 <i class="fa fa-plus"></i> Tambah Data
                             </a>
+
+                            <a href="{{ route('admin.barang.filter') }}" class="btn btn-xs btn-primary btn-add">
+                                <i class="fa fa-qrcode"></i> Cetak QR Code
+                            </a>
+                            
                         </div>
                     </div>
                 </div>

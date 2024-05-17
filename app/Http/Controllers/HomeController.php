@@ -14,6 +14,7 @@ use Illuminate\Validation\Rule;
 use PDF;
 use File;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -55,6 +56,82 @@ class HomeController extends Controller
         ];
         return $data;
     }
+
+    public function profil()
+    {
+        $title = "Profil User";
+
+        $user = auth()->user(); // Mengambil pengguna yang sedang login
+        // dd($user);
+
+        return view('auth.perbarui-profil', compact(
+            'title',
+            'user',
+        ));
+    }
+
+    public function profil_update(Request $request, $id)
+    {
+       
+        $dataUser = User::findOrFail(decrypt($id));
+        
+        // dd($dataUser);
+        // dd($request);
+        $validatedData = $request->validate([
+            // 'no_telepon' => 'required',
+            'foto'      => 'image|file|max:2048'
+        ]);
+        
+        dd($validatedData);
+
+        // Jika email yang dimasukkan bukan milik pengguna yang sedang diupdate
+        if ($request->email != $dataUser->email) {
+            // Periksa apakah email sudah terpakai
+            $existingEmail = User::where('email', $request->email)->first();
+
+            // Jika email sudah digunakan dan bukan milik pengguna yang sedang diupdate
+            if ($existingEmail && $existingEmail->id !== $dataUser->id) {
+                return redirect()->back()->withInput()->withErrors(['email' => 'Email sudah terpakai']);
+            } else 
+            {
+                $validatedData['email'] = $request->email;
+            }
+        }
+
+        // Jika username yang dimasukkan bukan milik pengguna yang sedang diupdate
+        if ($request->no_telepon != $dataUser->no_telepon) {
+            // Periksa apakah username sudah terpakai
+            $existingUser = User::where('no_telepon', $request->no_telepon)->first();
+
+            // Jika username sudah digunakan dan bukan milik pengguna yang sedang diupdate
+            if ($existingUser && $existingUser->id !== $dataUser->id) {
+                return redirect()->back()->withInput()->withErrors(['no_telepon' => 'No Telepon sudah terpakai']);
+            } else 
+            {
+                $validatedData['no_telepon'] = $request->username;
+            }
+            
+        }
+
+        if ($request->file('foto')) {
+            if ($dataUser->foto) {
+                Storage::delete('public/users/' . $dataUser->foto);
+            }
+            $validatedData['foto'] = $validatedData['name'] . "-" . date('His') . "new." . $request->file('foto')->getClientOriginalExtension();
+            $request->file('foto')->storeAs('public/users', $validatedData['foto']);
+        }
+
+        $dataUser->update($validatedData);
+
+        return redirect()->route('profil')->with(['msg' => 'Data Berhasil Diubah', 'class' => 'alert-success']);
+    }
+
+
+
+
+
+
+
 
     /**
      * Show the form for creating a new resource.

@@ -36,17 +36,30 @@
                             </li>
                         </ul>
                     </div>
+                    <a href="https://api.whatsapp.com/send?phone={{ $peminjaman->user->no_telepon }}&text=Pesan" target="_blank" class="btn btn-sm btn-success">
+                        <i class="fa fa-envelope"></i> WhatsApp
+                     </a>
                 </td>
                 <td class="center">{{ $peminjaman->user->name }}</td>
                 <td>{{ $peminjaman->kegiatan }}</td>
-                <td>
+                {{-- <td>
                     <span
                         class="text-primary">{{ date('d M Y', strtotime($peminjaman->tgl_peminjaman)) . ' : ' . date('H.m', strtotime($peminjaman->jam_peminjaman)) }}
                         WIB</span> <br>
                     <span
                         class="text-success">{{ date('d M Y', strtotime($peminjaman->tgl_pengembalian)) . ' : ' . date('H.m', strtotime($peminjaman->pengembalian)) }}
                         WIB</span>
+                </td> --}}
+
+                <td>
+                    <span
+                        class="text-primary">{{ date('d M Y H:i', strtotime($peminjaman->waktu_peminjaman)) }}
+                        WIB</span> <br>
+                    <span
+                        class="text-success">{{ date('d M Y H:i', strtotime($peminjaman->waktu_pengembalian)) }}
+                        WIB</span>
                 </td>
+                
                 <td>
                     <button class="badge bg-info btn-detail" id="btn-detail" data-id="{{ $peminjaman->id }}"><i
                             class="fa-solid fa-asterisk"></i> lihat
@@ -54,7 +67,7 @@
 
                     @switch($peminjaman->konfirmasi)
                         @case(1)
-                            <small class="text-xs badge bg-warning"><i class="fa fa-spinner fa-spin"></i> menunggu
+                            <small class="text-xs badge bg-secondary"><i class="fa fa-spinner fa-spin"></i> menunggu
                                 konfirmasi</small>
                         @break
 

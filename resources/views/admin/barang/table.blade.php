@@ -11,6 +11,7 @@
             <th>Nilai Perolehan (Rp)</th>
             <th>Kondisi</th>
             <th>Status</th>
+           
         </tr>
     </thead>
     <tbody>
@@ -25,6 +26,10 @@
                     <a href="{{ route('admin.barang.edit', $barang->id) }}" class="btn btn-primary btn-xs btn-update">
                         <i class="fa fa-edit"></i>
                     </a>
+
+                    {{-- <a href="{{ route('admin.barang.view', $barang->id) }}" class="btn btn-secondary btn-xs btn-update">
+                        <i class="fa fa-eye"></i>
+                    </a> --}}
 
                     <a href="javascript:;" data-id="{{ $barang->id }}" class="btn btn-danger btn-xs btn-delete">
                         <i class="fa fa-trash"></i>
@@ -59,6 +64,9 @@
                 @endphp
                 <td>{{ $kondisi }}</td>
                 <td>{{ $status }}</td>
+            
+                
+                
 
 
             </tr>

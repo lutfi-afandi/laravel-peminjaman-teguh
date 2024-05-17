@@ -127,6 +127,21 @@
                                     </small>
                                 @enderror
                             </div>
+
+                            <div class="col-md-6  @error('bisa_pinjam') has-error @enderror">
+                                <label for="bisa_pinjam" class=" control-label">Bisa Pinjam</label>
+                                <select name="bisa_pinjam" id="bisa_pinjam" class="form-control">
+                                    <option value="">-Pilih-</option>
+                                    <option value="0">Tidak</option>
+                                    <option value="1">Bisa</option>
+
+                                </select>
+                                @error('bisa_pinjam')
+                                    <small class="form-message">
+                                        {{ $message }}
+                                    </small>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="row">

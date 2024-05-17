@@ -25,7 +25,9 @@ class User extends Authenticatable
         'level',
         'fakultas_kode',
         'email_pribadi',
-        'no_telepon'
+        'no_telepon',
+        'unitkerja_id',
+        'foto'
     ];
 
     /**
@@ -55,5 +57,15 @@ class User extends Authenticatable
     public function peminjaman_barang()
     {
         return $this->hasMany(Peminjaman::class);
+    }
+
+    public function peminjaman_ruang()
+    {
+        return $this->hasMany(PeminjamanRuangan::class);
+    }
+
+    public function unitkerja()
+    {
+        return $this->belongsTo(Unitkerja::class);
     }
 }

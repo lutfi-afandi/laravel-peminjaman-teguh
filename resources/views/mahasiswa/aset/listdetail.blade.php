@@ -5,6 +5,7 @@
                 <th>NO</th>
                 <th>Nama Barang</th>
                 <th>Jumlah</th>
+                <th>Lokasi Barang</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -14,6 +15,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $item->barang->nama }}</td>
                     <td>{{ $item->jml_barang }}</td>
+                    <td>{{ $item->barang->ruangan->nama_ruangan }}</td>
                     <td>
                         <a href="javascript:;" class="btn btn-xs btn-danger btn-outline btn-3d btn-hapus"
                             data-id="{{ $item->id }}">x</a>

@@ -22,6 +22,7 @@
     <link href="{{ asset('TemplatePixel/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('TemplatePixel/css/pixeladmin.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('TemplatePixel/css/widgets.min.css') }}" rel="stylesheet" type="text/css">
+    
 
     <!-- Theme -->
     <link href="{{ asset('TemplatePixel/css/themes/silver.min.css') }}" rel="stylesheet" type="text/css">

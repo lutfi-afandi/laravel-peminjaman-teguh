@@ -30,9 +30,27 @@
                         <div class="widget-notifications-title text-danger font-size-18"><strong>Kegiatan :</strong>
                             {{ $dataPeminjaman->kegiatan }}
                         </div>
-                        <div class="widget-notifications-description"><strong>Waktu :
-                            </strong>{{ date('d-M-Y', strtotime($dataPeminjaman->tgl_dataPeminjaman)) . ' ' . $dataPeminjaman->jam_dataPeminjaman . ' s/d ' . date('d-M-Y', strtotime($dataPeminjaman->tgl_pengembalian)) . ' ' . $dataPeminjaman->jam_pengembalian }}
+
+                        <div class="widget-notifications-description font-size-12">
+                            <i class="fa-regular fa-calendar-check"></i>
+                            <strong>
+                                Tanggal :
+                            </strong>
+                            {{ \Carbon\Carbon::parse($dataPeminjaman->waktu_peminjaman)->isoFormat('dddd, D MMMM YYYY') . ' s/d ' . \Carbon\Carbon::parse($dataPeminjaman->waktu_pengembalian)->isoFormat('dddd, D MMMM YYYY') }}
                         </div>
+
+                        <div class="widget-notifications-description  font-size-12"><i
+                                class="fa-regular fa-clock"></i><strong>
+                                Waktu :
+                            </strong>{{ date('H:i', strtotime($dataPeminjaman->waktu_peminjaman)) . ' s/d ' . date('H:i', strtotime($dataPeminjaman->waktu_pengembalian)) }}
+                        </div>
+
+                        <div class="widget-notifications-description  font-size-12"><i class="fa-solid fa-location-dot"></i>
+                            <strong>
+                                Tempat :
+                            </strong>{{ $dataPeminjaman->ruangan->nama_ruangan }}
+                        </div>
+
                         <div class="widget-notifications-date m-t-1">
                             @php
                                 $bg = '';
@@ -91,14 +109,16 @@
                 <div class="modal-body">
                     <form action="{{ route('mahasiswa.detailpeminjaman.store') }}" id="form-add-barang" method="post">
                         @csrf
-                        <input type="hidden" name="pinjambarang_id" id="pinjambarang_id" value="{{ $dataPeminjaman->id }}">
+                        <input type="hidden" name="pinjambarang_id" id="pinjambarang_id"
+                            value="{{ $dataPeminjaman->id }}">
 
                         <fieldset class="form-group">
                             <label for="barang_id">Barang</label>
                             <select name="barang_id" id="barang_id" class="form-control" required>
                                 <option value="" hidden>Pilih Barang</option>
                                 @foreach ($barangs as $barang)
-                                    <option value="{{ $barang->id }}">{{ $barang->nama }}</option>
+                                    <option value="{{ $barang->id }}">{{ $barang->nama }} -
+                                        {{ $barang->penanggung_jawab }}</option>
                                 @endforeach
                             </select>
                         </fieldset>
@@ -146,5 +166,17 @@
         setTimeout(function() {
             document.getElementById('respon').innerHTML = '';
         }, 2000);
+
+
+
+        $(function() {
+            // Initialize Select2 select box
+            $('#barang_id').select2({
+                dropdownParent: $('#modal-large'),
+                placeholder: 'Pilih Barang....',
+            }).change(function() {
+                $(this).valid();
+            });
+        });
     </script>
 @endpush

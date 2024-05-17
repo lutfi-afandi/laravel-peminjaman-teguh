@@ -27,7 +27,7 @@
                             <div class="col-md-6 @error('kode_ruangan') has-error @enderror">
                                 <label for="kode_ruangan" class="control-label">Kode Ruangan</label>
                                 <input type="text" class="form-control" id="kode_ruangan" name="kode_ruangan"
-                                    placeholder="Kode Ruangan" value="{{ old('kode_ruangan') }}" readonly>
+                                    placeholder="Kode Ruangan" value="{{ old('kode_ruangan', $ruangan->kode_ruangan) }}" readonly>
                                 @error('kode_ruangan')
                                     <small class="form-message">
                                         {{ $message }}
@@ -69,6 +69,8 @@
                                 @enderror
                             </div>
                         </div>
+
+                        
 
                         <div class="row">
                             <div class="col-md-6  @error('kapasitas') has-error @enderror">
@@ -138,7 +140,26 @@
                                     </small>
                                 @enderror
                             </div>
+
+                            <div class="col-md-6  @error('bisa_pinjam') has-error @enderror">
+                                <label for="bisa_pinjam" class=" control-label">Bisa Pinjam</label>
+                                <select name="bisa_pinjam" id="bisa_pinjam" class="form-control">
+                                    <option value="">-Pilih-</option>
+                                    <option value="0"
+                                        {{ old('bisa_pinjam', $ruangan->bisa_pinjam) == '0' ? 'selected' : '' }}>Tidak</option>
+                                    <option value="1"
+                                        {{ old('bisa_pinjam', $ruangan->bisa_pinjam) == '1' ? 'selected' : '' }}>Bisa</option>
+                                   
+                                </select>
+                                @error('bisa_pinjam')
+                                    <small class="form-message">
+                                        {{ $message }}
+                                    </small>
+                                @enderror
+                            </div>
                         </div>
+
+                        
 
                         <div class="row">
 

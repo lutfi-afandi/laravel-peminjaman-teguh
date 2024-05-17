@@ -19,6 +19,7 @@
             <tr class="odd gradeX text-center">
                 <td class="center">{{ $loop->iteration }}</td>
                 <td class="center">
+                    
                     <a href="{{ route('admin.ruangan.edit', $ruang->id) }}" class="btn btn-primary btn-xs btn-update">
                         <i class="fa fa-edit"></i>
                     </a>
@@ -26,6 +27,8 @@
                     <a href="javascript:;" data-id="{{ $ruang->id }}" class="btn btn-danger btn-xs btn-delete">
                         <i class="fa fa-trash"></i>
                     </a>
+                    
+                    
                 </td>
 
                 <td><b>{{ $ruang->kode_ruangan }}</b> <br> {{ $ruang->nama_ruangan }} </td>

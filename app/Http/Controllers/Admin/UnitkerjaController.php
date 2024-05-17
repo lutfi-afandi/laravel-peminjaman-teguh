@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Unitkerja;
 use Illuminate\Http\Request;
 
 class UnitkerjaController extends Controller
@@ -14,7 +15,13 @@ class UnitkerjaController extends Controller
      */
     public function index()
     {
-        //
+        $title = "Data Unit Kerja";
+        $unitKerja = Unitkerja::all();
+        // dd($unitKerja);
+        return view('admin.unit.data', compact(
+            'title',
+            'unitKerja'
+        ));
     }
 
     /**
@@ -24,7 +31,8 @@ class UnitkerjaController extends Controller
      */
     public function create()
     {
-        //
+        $title = "Tambah Data Unit Kerja";
+        return  view('admin.unit.create', compact('title'));
     }
 
     /**
@@ -35,7 +43,18 @@ class UnitkerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData  = $request->validate([
+            'kode'     => 'required|unique:unitkerjas',
+            'nama'     => 'required|max:255',
+            
+        ]);
+        // dd($request->file('foto')->getExtension());
+        // $validatedData['']
+
+        
+        Unitkerja::create($validatedData);
+        // dd();
+        return redirect()->route('admin.unit.index')->with(['msg' => 'Data Berhasil Disimpan', 'class' => 'alert-success']);
     }
 
     /**
@@ -46,7 +65,13 @@ class UnitkerjaController extends Controller
      */
     public function show($id)
     {
-        //
+        $title = "Hapus Data Unit";
+        $dataUnit = Unitkerja::where("id", $id)->first();
+        $view = view('admin.unit.delete', compact('title', 'dataUnit'))->render();
+        return response()->json([
+            'success' => true,
+            'html' => $view
+        ]);
     }
 
     /**
@@ -57,7 +82,11 @@ class UnitkerjaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = "Edit Data Unit Kerja";
+        $dataUnit = Unitkerja::where("id", $id)->first();
+        // dd($dataUnit);
+        $view = view('admin.unit.update', compact('title', 'dataUnit'));
+        return $view;
     }
 
     /**
@@ -69,7 +98,21 @@ class UnitkerjaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dataUnit = Unitkerja::where("id", $id)->first();
+        $rules = [
+            'nama'     => 'required|max:255'
+        ];
+        
+        // $validatedData['']
+
+        if($request->kode != $dataUnit->kode) {
+            $rules['kode'] = 'required|unique:unitkerjas';
+        }
+        $validatedData = $request->validate($rules);
+        
+        Unitkerja::where('id', $id)->update($validatedData);
+        // dd();
+        return redirect()->route('admin.unit.index')->with(['msg' => 'Berhasil Mengubah Data', 'class' => 'alert-success']);
     }
 
     /**
@@ -80,6 +123,8 @@ class UnitkerjaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        Unitkerja::where('id', $id)->delete();
+        return back()->with(['msg' => 'Berhasil Menghapus Data', 'class' => 'alert-success']);
     }
 }

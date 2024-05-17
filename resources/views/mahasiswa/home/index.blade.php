@@ -1,5 +1,5 @@
 @extends('templateAdminLTE/home')
-{{-- @section('sub-breadcrumb', 'Halaman Mahasiswa') --}}
+@section('sub-breadcrumb', 'Halaman Mahasiswa')
 @section('content')
     <div class="row ">
         <div class="col-md-12">

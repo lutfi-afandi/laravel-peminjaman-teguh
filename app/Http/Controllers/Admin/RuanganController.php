@@ -119,7 +119,6 @@ class RuanganController extends Controller
             'unitkerjas',
         ));
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -140,6 +139,7 @@ class RuanganController extends Controller
             'luas'     => '',
             'tipe'     => '',
             'kondisi'     => 'required',
+            'bisa_pinjam'     => 'required',
             'foto_ruangan' => 'image|file|max:2048',
             'status'     => 'required',
         ]);

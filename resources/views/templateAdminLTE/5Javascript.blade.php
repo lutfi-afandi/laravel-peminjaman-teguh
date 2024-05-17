@@ -15,7 +15,14 @@
 </script>
 <!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+{{-- Full Calendar --}}
+<script src=’https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js’></script>
+@stack('scripts')
 @stack('js')
+
+
+
 </body>
 
 </html>

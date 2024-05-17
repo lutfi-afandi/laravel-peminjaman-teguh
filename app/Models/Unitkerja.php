@@ -14,4 +14,9 @@ class Unitkerja extends Model
     {
         return $this->hasMany(Ruangan::class);
     }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

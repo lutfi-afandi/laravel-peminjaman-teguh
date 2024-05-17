@@ -3,9 +3,18 @@
         <div class="widget-notifications-title text-danger font-size-16"><strong>Kegiatan :</strong>
             {{ $peminjaman->kegiatan }}
         </div>
-        <div class="widget-notifications-description  font-size-12"><i class="fa-regular fa-calendar-check"></i><strong>
+
+        <div class="widget-notifications-description font-size-12">
+            <i class="fa-regular fa-calendar-check"></i>
+            <strong>
+                Tanggal :
+            </strong>
+            {{ \Carbon\Carbon::parse($peminjaman->waktu_peminjaman)->isoFormat('dddd, D MMMM YYYY') . ' s/d '. \Carbon\Carbon::parse($peminjaman->waktu_pengembalian)->isoFormat('dddd, D MMMM YYYY')}}
+        </div>
+
+        <div class="widget-notifications-description  font-size-12"><i class="fa-regular fa-clock"></i><strong>
                 Waktu :
-            </strong>{{ date('d-M-Y', strtotime($peminjaman->tgl_peminjaman)) . ' ' . $peminjaman->jam_peminjaman . ' s/d ' . date('d-M-Y', strtotime($peminjaman->tgl_pengembalian)) . ' ' . $peminjaman->jam_pengembalian }}
+            </strong>{{ date('H:i', strtotime($peminjaman->waktu_peminjaman)) . ' s/d ' . date('H:i', strtotime($peminjaman->waktu_pengembalian)) }}
         </div>
         <div class="widget-notifications-description  font-size-12"><i class="fa-solid fa-location-dot"></i> <strong>
                 Tempat :
@@ -35,18 +44,27 @@
             <div class="badge bg-primary btn btn-detail1" data-id="{{ $peminjaman->id }}"><i class="fa fa-eye"></i>
                 detail
             </div>
-            <a href="{{ route('mahasiswa.peminjaman.show', $peminjaman->id) }}" class="badge bg-success btn btn-add"
+            
+            @if ($peminjaman->konfirmasi == 1)
+            <a href="{{ route('mahasiswa.peminjaman.show', encrypt($peminjaman->id)) }}" class="badge bg-success btn btn-add"
                 data-id="{{ $peminjaman->id }}"><i class="fa fa-plus"></i> tambah</a>
+            @endif
 
-            <form action="{{ route('mahasiswa.peminjaman.destroy', $peminjaman->id) }}" method="post"
+            @if ($peminjaman->konfirmasi == 1 || $peminjaman->konfirmasi == 3)
+            <form action="{{ route('mahasiswa.peminjaman.destroy', $peminjaman->id) }}" method="post" id="deleteForm"
                 style="display: inline-block">
                 @csrf
                 @method('delete')
-                <button type="submit" class="badge bg-danger"><i class="fa fa-times"></i> hapus</button>
-                {{-- <a href="#" type="button" class="badge bg-danger btn btn-delete"
-                    data-id="{{ $peminjaman->id }}"><i class="fa fa-times"></i>
-                    hapus</a> --}}
+                <button type="submit" onclick="confirmDelete(event)" class="badge bg-danger"><i class="fa fa-times"></i>
+                    hapus</button>
+
             </form>
+            @endif
+
+            @if ($peminjaman->konfirmasi == 2)
+            <a href="{{ route('mahasiswa.peminjaman.cetak', encrypt($peminjaman->id)) }}" target="__blank" class="badge bg-secondary btn btn-add"
+                data-id="{{ $peminjaman->id }}"><i class="fa fa-print"></i> Cetak</a>
+            @endif
         </div>
 
 
@@ -55,6 +73,7 @@
                 <tr>
                     <th>Nama Barang</th>
                     <th>Jumlah Barang</th>
+                    <th>Lokasi Barang</th>
                 </tr>
             </thead>
 
@@ -66,6 +85,7 @@
                         <tr>
                             <td>{{ $detail->barang->nama }}</td>
                             <td>{{ $detail->jml_barang }}</td>
+                            <td>{{ $detail->barang->ruangan->nama_ruangan }}</td>
                         </tr>
                     </tbody>
                 @endif
@@ -83,4 +103,18 @@
         $('#detail-table' + id).slideToggle();
 
     });
+
+    function confirmDelete(event) {
+        // Menampilkan pesan konfirmasi
+        var confirmation = confirm("Apakah Anda yakin ingin menghapus data ini?");
+
+
+        if (confirmation) {
+        // Lakukan submit form
+        $(event.target).closest('form').submit();
+        } else {
+        // Batalkan aksi default klik tombol
+        event.preventDefault();
+        }
+    }
 </script>

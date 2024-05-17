@@ -58,6 +58,7 @@ class GedungController extends Controller
         // $validatedData['']
 
         if ($request->file('foto')) {
+            
             $validatedData['foto'] = $validatedData['kode'] . "-" . date('His') . "." . $request->file('foto')->getClientOriginalExtension();
             $request->file('foto')->storeAs('public/gedungs', $validatedData['foto']);
         }

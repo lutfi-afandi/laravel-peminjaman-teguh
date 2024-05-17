@@ -18,6 +18,8 @@ class PeminjamanController extends Controller
     {
         $title = "Data Peminjaman";
         $dataPeminjaman = Peminjaman::has('detail_peminjaman')->with('user', 'detail_peminjaman.barang')->get();
+
+        $dataPeminjaman = Peminjaman::with('user','ruangan.gedung')->get();
         // dd($dataPeminjaman);
         return view('admin.peminjaman.data', compact(
             'title',

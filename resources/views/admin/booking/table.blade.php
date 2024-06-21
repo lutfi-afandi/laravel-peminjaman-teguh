@@ -18,25 +18,16 @@
             <tr class="odd gradeX ">
                 <td class="center">{{ $loop->iteration }}</td>
                 <td>
-                    <div class="btn-group" >
-                        <button type="button" class="btn btn-sm btn-info btn-outline dropdown-toggle"
-                            data-toggle="dropdown" aria-expanded="false">Konfirmasi</button>
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:;" class="bg-success btn-confirm" data-id="{{ $booking->id }}"
-                                    data-con="2"><i class="fa fa-check"></i>
-                                    Terima</a>
-                            </li>
-                            <li><a href="javascript:;" class="bg-danger btn-confirm" data-id="{{ $booking->id }}"
-                                    data-con="3"><i class="fa fa-xmark"></i>
-                                    Tolak</a></li>
-                            <li><a href="javascript:;" class="bg-primary btn-confirm" data-id="{{ $booking->id }}"
-                                    data-con="4"><i class="fa fa-check-double"></i>
-                                    Dikembalikan</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <a href="javascript:;" data-id="{{ $booking->id }}" class="btn btn-info btn-sm btn-confirm">
+                        Konfirmasi</i>
+                    </a>
+
                     <a style="margin-top: 5px;" href="https://api.whatsapp.com/send?phone={{ $booking->user->no_telepon }}&text=Pesan" target="_blank" class="btn btn-sm btn-success">
                         <i class="fa fa-envelope"></i> WhatsApp
+                     </a>
+
+                    <a style="margin-top: 5px;" href="{{ route('admin.booking.edit', encrypt($booking->id)) }}" class="btn btn-sm btn-warning">
+                        <i class="fa fa-edit"></i> Edit
                      </a>
                 </td>
                 <td class="center">{{ $booking->user->name }}</td>

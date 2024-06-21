@@ -77,12 +77,12 @@ class HomeController extends Controller
         
         // dd($dataUser);
         // dd($request);
-        $validatedData = $request->validate([
-            // 'no_telepon' => 'required',
-            'foto'      => 'image|file|max:2048'
-        ]);
+        // $validatedData = $request->validate([
+        //     // 'no_telepon' => 'required',
+        //     'foto'      => 'image|file|max:2048'
+        // ]);
         
-        dd($validatedData);
+        // dd($validatedData);
 
         // Jika email yang dimasukkan bukan milik pengguna yang sedang diupdate
         if ($request->email != $dataUser->email) {
@@ -98,17 +98,15 @@ class HomeController extends Controller
             }
         }
 
-        // Jika username yang dimasukkan bukan milik pengguna yang sedang diupdate
+        
         if ($request->no_telepon != $dataUser->no_telepon) {
-            // Periksa apakah username sudah terpakai
+            
             $existingUser = User::where('no_telepon', $request->no_telepon)->first();
-
-            // Jika username sudah digunakan dan bukan milik pengguna yang sedang diupdate
             if ($existingUser && $existingUser->id !== $dataUser->id) {
                 return redirect()->back()->withInput()->withErrors(['no_telepon' => 'No Telepon sudah terpakai']);
             } else 
             {
-                $validatedData['no_telepon'] = $request->username;
+                $validatedData['no_telepon'] = $request->no_telepon;
             }
             
         }
@@ -120,6 +118,8 @@ class HomeController extends Controller
             $validatedData['foto'] = $validatedData['name'] . "-" . date('His') . "new." . $request->file('foto')->getClientOriginalExtension();
             $request->file('foto')->storeAs('public/users', $validatedData['foto']);
         }
+
+        // dd($validatedData);
 
         $dataUser->update($validatedData);
 

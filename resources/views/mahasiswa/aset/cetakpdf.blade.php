@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
     <title>Cetak Peminjaman Aset</title>
 
     <style>
         /* Style untuk kontainer */
         .container {
             position: relative;
-            width: 80%;
+            width: 90%;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -89,8 +89,8 @@
             </div>
             <div>
                 <p><strong>Nama</strong>: {{ $dataPeminjaman->user->name }}</p>
-                <p><strong>Prodi</strong>:</p>
-                <p><strong>NPM</strong>:</p>
+                <p><strong>Prodi</strong>: {{ $dataPeminjaman->user->unitkerja->nama }}</p>
+                <p><strong>NPM</strong>: {{ $dataPeminjaman->user->username }}</p>
                 <p><strong>No HP</strong>:  {{ $dataPeminjaman->user->no_telepon }}</p>
             </div>
             
@@ -128,8 +128,7 @@
         </ol>
 
         <div class="visible-print text-center qr-code">
-            {!! QrCode::size(85)->generate(env('APP_URL'). '/CetakPeminjaman/'.encrypt($dataPeminjaman->id)); !!}
-            {{-- {!! QrCode::size(250)->generate(env('APP_URL') . 'master/barang/'.$barang->id.'/edit'); !!} --}}
+            {!! QrCode::size(100)->generate(env('APP_URL'). 'master/peminjaman/ubah/'.encrypt($dataPeminjaman->id)); !!}
         </div>
 
     </div>

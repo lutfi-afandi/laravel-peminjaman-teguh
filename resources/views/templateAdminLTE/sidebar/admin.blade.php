@@ -50,13 +50,13 @@
                     Barang</span>
             </a>
         </li>
-        <li class="px-nav-item {{ request()->is('master/kegiatan*') ? 'active' : '' }}">
+        {{-- <li class="px-nav-item {{ request()->is('master/kegiatan*') ? 'active' : '' }}">
             <a href="{{ route('admin.kegiatan.index') }}">
                 <span class="px-nav-label">
                     <i class="dropdown-icon px-nav-icon ion-ios-pulse-strong"></i>
                     Kegiatan</span>
             </a>
-        </li>
+        </li> --}}
         <li class="px-nav-item {{ request()->is('master/gedung*') ? 'active' : '' }}">
             <a href="{{ route('admin.gedung.index') }}">
                 <span class="px-nav-label">
@@ -88,4 +88,10 @@
             </a>
         </li>
     </ul>
+</li>
+
+<li class="px-nav-item {{ request()->is('master*') ? 'active' : '' }}">
+    <a href="{{ route('admin.scan.qrcode') }}"><i class="px-nav-icon fa fa-qrcode"></i>
+        <span class="px-nav-label">Scan Qr Code</span>
+    </a>
 </li>

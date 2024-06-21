@@ -18,8 +18,8 @@
                 </div>
                 <div class="panel-body">
 
-                    <form action="{{ route('admin.user.update', $dataUser->id) }}" method="POST"
-                        class="form-horizontal" enctype="multipart/form-data">
+                    <form action="{{ route('admin.user.update', $dataUser->id) }}" method="POST" class="form-horizontal"
+                        enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         {{-- <div class="form-group"> --}}
@@ -49,9 +49,8 @@
                         <div class="row">
                             <div class="col-md-6  @error('email') has-error @enderror">
                                 <label for="email" class="control-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email"
-                                    placeholder="Email" required
-                                    value="{{ old('email', $dataUser->email) }}">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                    required value="{{ old('email', $dataUser->email) }}">
                                 @error('email')
                                     <small class="form-message">
                                         {{ $message }}
@@ -75,11 +74,13 @@
                                 <label for="level" class=" control-label">Level</label>
                                 <select name="level" id="level" class="form-control">
                                     <option value="">-Level User-</option>
-                                    <option value="admin" {{ $dataUser->level == 'admin' ? 'selected' : '' }}>Admin</option>
+                                    <option value="admin" {{ $dataUser->level == 'admin' ? 'selected' : '' }}>Admin
+                                    </option>
                                     <option value="baak" {{ $dataUser->level == 'baak' ? 'selected' : '' }}>BAAK</option>
-                                    <option value="mahasiswa" {{ $dataUser->level == 'mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
+                                    <option value="mahasiswa" {{ $dataUser->level == 'mahasiswa' ? 'selected' : '' }}>
+                                        Mahasiswa</option>
                                 </select>
-                                
+
                                 @error('level')
                                     <small class="form-message">
                                         {{ $message }}
@@ -88,9 +89,10 @@
                             </div>
                             <div class="col-md-6  @error('no_telepon') has-error @enderror">
                                 <label for="no_telepon" class=" control-label">No Telepon</label>
-                                <input type="number" class="form-control" id="no_telepon" name="no_telepon"
-                                    placeholder="" value="{{ old('no_telepon', $dataUser->no_telepon) }}">
-                                    
+                                <input type="number" class="form-control" id="no_telepon" name="no_telepon" placeholder=""
+                                    value="{{ old('no_telepon', $dataUser->no_telepon) }}">
+                                <small id="no_telepon_error" class="text-danger" style="display:none;">Masukkan nomor
+                                    telepon dengan lengkap</small>
                                 @error('no_telepon')
                                     <small class="form-message">
                                         {{ $message }}
@@ -101,7 +103,7 @@
 
                         <div class="row">
 
-                            
+
 
                             <div class="col-md-6  @error('unitkerja_id') has-error @enderror">
                                 <label for="unitkerja_id" class=" control-label">Unit Kerja</label>
@@ -119,7 +121,7 @@
                                     </small>
                                 @enderror
                             </div>
-                            
+
                             <div class="col-md-6">
                                 <label for="foto" class="control-label">Foto User</label>
                                 <label class="custom-file px-file" for="success-input-4">
@@ -178,7 +180,32 @@
             }
 
 
-            
+            // Untuk format no telepon jadi 628
+            document.getElementById('no_telepon').addEventListener('input', function(e) {
+                let phoneNumber = e.target.value.trim();
+                // Menghapus semua karakter kecuali angka
+                phoneNumber = phoneNumber.replace(/\D/g, '');
+
+                // Mengubah nomor telepon yang dimulai dengan '08' menjadi '628'
+                if (phoneNumber.startsWith('08')) {
+                    phoneNumber = '628' + phoneNumber.slice(2);
+                }
+
+                // Memastikan panjang nomor telepon
+                if (phoneNumber.length < 10) {
+                    document.getElementById('no_telepon_error').style.display = 'block';
+                } else {
+                    document.getElementById('no_telepon_error').style.display = 'none';
+                }
+
+                // Jika panjang nomor telepon melebihi 15 digit, ambil 15 digit pertama
+                if (phoneNumber.length > 15) {
+                    phoneNumber = phoneNumber.slice(0, 15);
+                }
+
+                // Mengatur ulang nilai input dengan nomor telepon yang telah dimodifikasi
+                e.target.value = phoneNumber;
+            });
         </script>
     @endpush
 @endsection

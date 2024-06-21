@@ -134,7 +134,7 @@ class UserController extends Controller
 
         if($request->password) {
             // $validatedData['password'] = $request->password;
-            $validatedData['password'] = Hash::make($validatedData['password']);
+            $validatedData['password'] = Hash::make($request->password);
         }
 
         if($request->unitkerja_id) {

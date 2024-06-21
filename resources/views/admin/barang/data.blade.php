@@ -24,6 +24,9 @@
                             <a href="{{ route('admin.barang.filter') }}" class="btn btn-xs btn-primary btn-add">
                                 <i class="fa fa-qrcode"></i> Cetak QR Code
                             </a>
+                            <a href="{{ route('excelExport') }}" class="btn btn-xs btn-primary btn-add">
+                                <i class="fa fa-download"></i> Export Data
+                            </a>
                             
                         </div>
                     </div>

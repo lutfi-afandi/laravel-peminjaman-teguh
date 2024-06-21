@@ -80,7 +80,28 @@ class PeminjamanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title = "Konfirmasi Peminjaman";
+        $dataPinjam = Peminjaman::where("id", $id)->first();
+        $view = view('admin.peminjaman.confirm', compact('title', 'dataPinjam'))->render();
+        return response()->json([
+            'success' => true,
+            'html' => $view
+        ]);
+    }
+
+    public function ubah($id)
+    {
+        $title = "Ubah Peminjaman";
+        $dataPinjam = Peminjaman::where("id", decrypt($id))->first();
+        $detailPinjam = Detailpeminjaman::with('barang', 'peminjaman_barang')
+            ->where('pinjambarang_id', decrypt($id))
+            ->get();
+            // dd($detailPinjam);
+        return view('admin.peminjaman.update', compact(
+            'title',
+            'dataPinjam',
+            'detailPinjam'
+        ));
     }
 
     /**
@@ -96,7 +117,7 @@ class PeminjamanController extends Controller
         Peminjaman::where("id", $id)->update([
             'konfirmasi' => $request->konfirmasi,
         ]);
-        return redirect('admin.peminjaman.index')->with(['msg' => 'Dikonfirmasi', 'class' => 'alert-success']);
+        return redirect()->route('admin.peminjaman.index')->with(['msg' => 'Dikonfirmasi', 'class' => 'alert-success']);
     }
 
     /**

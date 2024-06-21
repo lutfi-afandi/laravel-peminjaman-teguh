@@ -19,7 +19,10 @@
             <tr class="odd gradeX ">
                 <td class="center">{{ $loop->iteration }}</td>
                 <td>
-                    <div class="btn-group">
+                    <a href="javascript:;" data-id="{{ $peminjaman->id }}" class="btn btn-info btn-sm btn-confirm">
+                        Konfirmasi</i>
+                    </a>
+                    {{-- <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-info btn-outline dropdown-toggle"
                             data-toggle="dropdown" aria-expanded="false">Konfirmasi</button>
                         <ul class="dropdown-menu">
@@ -35,10 +38,14 @@
                                     Dikembalikan</a>
                             </li>
                         </ul>
-                    </div>
-                    <a href="https://api.whatsapp.com/send?phone={{ $peminjaman->user->no_telepon }}&text=Pesan" target="_blank" class="btn btn-sm btn-success">
+                    </div> --}}
+                    <a href="https://api.whatsapp.com/send?phone={{ $peminjaman->user->no_telepon }}&text=Pesan"
+                        target="_blank" class="btn btn-sm btn-success">
                         <i class="fa fa-envelope"></i> WhatsApp
-                     </a>
+                    </a>
+                    <a href="{{ route('admin.peminjaman.ubah', encrypt($peminjaman->id)) }}" class="btn btn-sm btn-warning">
+                        <i class="fa fa-edit"></i> Ubah
+                    </a>
                 </td>
                 <td class="center">{{ $peminjaman->user->name }}</td>
                 <td>{{ $peminjaman->kegiatan }}</td>
@@ -52,14 +59,12 @@
                 </td> --}}
 
                 <td>
-                    <span
-                        class="text-primary">{{ date('d M Y H:i', strtotime($peminjaman->waktu_peminjaman)) }}
+                    <span class="text-primary">{{ date('d M Y H:i', strtotime($peminjaman->waktu_peminjaman)) }}
                         WIB</span> <br>
-                    <span
-                        class="text-success">{{ date('d M Y H:i', strtotime($peminjaman->waktu_pengembalian)) }}
+                    <span class="text-success">{{ date('d M Y H:i', strtotime($peminjaman->waktu_pengembalian)) }}
                         WIB</span>
                 </td>
-                
+
                 <td>
                     <button class="badge bg-info btn-detail" id="btn-detail" data-id="{{ $peminjaman->id }}"><i
                             class="fa-solid fa-asterisk"></i> lihat

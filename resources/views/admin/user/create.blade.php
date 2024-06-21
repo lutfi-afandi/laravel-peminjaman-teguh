@@ -100,8 +100,6 @@
 
                         <div class="row">
 
-
-
                             <div class="col-md-6  @error('unitkerja_id') has-error @enderror">
                                 <label for="unitkerja_id" class=" control-label">Unit Kerja</label>
                                 <select name="unitkerja_id" id="unitkerja_id" class="form-control">

@@ -9,22 +9,22 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="{{ route('admin.booking.update', $dataPinjam->id) }}" id="idForm">
+                <form method="post" action="{{ route('admin.peminjaman.update', $dataPinjam->id) }}" id="idForm">
                     @csrf
                     @method('put')
 
-                    <div class="form-group @error('status') has-error @enderror">
-                        <label for="status" class="control-label">Status</label>
-                        <select name="status" id="status" class="form-control">
+                    <div class="form-group @error('konfirmasi') has-error @enderror">
+                        <label for="konfirmasi" class="control-label">Status</label>
+                        <select name="konfirmasi" id="konfirmasi" class="form-control">
                             <option value="">-Ubah Status-</option>
-                            <option value="2" {{ $dataPinjam->status == 2 ? 'selected' : '' }}>Terima
+                            <option value="2" {{ $dataPinjam->konfirmasi == 2 ? 'selected' : '' }}>Terima
                             </option>
-                            <option value="3" {{ $dataPinjam->status == 3 ? 'selected' : '' }}>Tolak
+                            <option value="3" {{ $dataPinjam->konfirmasi == 3 ? 'selected' : '' }}>Tolak
                             </option>
-                            <option value="4" {{ $dataPinjam->status == 4 ? 'selected' : '' }}>Dikembalikan
+                            <option value="4" {{ $dataPinjam->konfirmasi == 4 ? 'selected' : '' }}>Dikembalikan
                             </option>
                         </select>
-                        @error('status')
+                        @error('konfirmasi')
                             <small class="form-message text-danger">
                                 {{ $message }}
                             </small>

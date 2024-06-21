@@ -13,11 +13,15 @@
     $('#datatables').dataTable();
     $('#datatables2').dataTable();
 </script>
+
+{{-- instajs scan QR --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/instascan/1.0.0/instascan.min.js"></script>
+
 <!-- sweetalert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 {{-- Full Calendar --}}
-<script src=’https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js’></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 @stack('scripts')
 @stack('js')
 

@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Kategori extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function barang()
     {
-        return $this->belongsTo(Barang::class);
+        return $this->hasMany(Barang::class);
     }
 }

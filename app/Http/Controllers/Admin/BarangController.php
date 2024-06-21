@@ -9,6 +9,9 @@ use App\Models\Kategori;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\BarangExport;
+use Excel;
+// use Maatwebsite\Excel\Excel;
 
 class BarangController extends Controller
 {
@@ -239,5 +242,10 @@ class BarangController extends Controller
         }
         Barang::where("id", $barang->id)->delete();
         return back()->with(['msg' => 'Berhasil Menghapus Data', 'class' => 'alert-success']);
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new BarangExport, 'barang-excel.xlsx');
     }
 }

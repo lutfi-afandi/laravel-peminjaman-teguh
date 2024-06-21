@@ -37,6 +37,11 @@
                         </li>
                     </ul>
                 </li>
+                <li class="px-nav-item{{ request()->is('master*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.scan.qrcode') }}"><i class="px-nav-icon fa fa-qrcode"></i>
+                        <span class="px-nav-label">Scan Qr Code</span>
+                    </a>
+                </li>
             @endif
         </ul>
     </nav>

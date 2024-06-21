@@ -44,20 +44,20 @@
                     }
                 });
 
-                $(document).on("click", ".btn-delete", function() {
-                    var id = $(this).attr("data-id");
-                    // console.log(id);
-                    var url = "{{ route('admin.peminjaman.show', ':id_data') }}";
-                    url = url.replace(":id_data", id);
-                    $.ajax({
-                            method: "GET",
-                            url: url,
-                        })
-                        .done(function(data) {
-                            $('#tempat-modal').html(data.html);
-                            $('#modal_show').modal('show');
-                        })
-                })
+                // $(document).on("click", ".btn-delete", function() {
+                //     var id = $(this).attr("data-id");
+                //     // console.log(id);
+                //     var url = "{{ route('admin.peminjaman.show', ':id_data') }}";
+                //     url = url.replace(":id_data", id);
+                //     $.ajax({
+                //             method: "GET",
+                //             url: url,
+                //         })
+                //         .done(function(data) {
+                //             $('#tempat-modal').html(data.html);
+                //             $('#modal_show').modal('show');
+                //         })
+                // })
 
                 $(document).on("click", ".btn-detail", function() {
                     var id = $(this).attr("data-id");
@@ -76,22 +76,37 @@
 
                 $(document).on("click", ".btn-confirm", function() {
                     var id = $(this).attr("data-id");
-                    var konfrimasi = $(this).attr("data-con");
-                    // alert(konfrimasi);
-                    var url = "{{ route('admin.peminjaman.update', ':id_data') }}";
+                    // console.log(id);
+                    var url = "{{ route('admin.peminjaman.edit', ':id_data') }}";
                     url = url.replace(":id_data", id);
                     $.ajax({
-                            method: "PUT",
+                            method: "GET",
                             url: url,
-                            data: {
-                                _token: '{{ csrf_token() }}',
-                                konfirmasi: konfrimasi,
-                            }
                         })
                         .done(function(data) {
-                            location.reload()
+                            $('#tempat-modal').html(data.html);
+                            $('#modal_show').modal('show');
                         })
                 })
+
+                // $(document).on("click", ".btn-confirm", function() {
+                //     var id = $(this).attr("data-id");
+                //     var konfrimasi = $(this).attr("data-con");
+                //     // alert(konfrimasi);
+                //     var url = "{{ route('admin.peminjaman.update', ':id_data') }}";
+                //     url = url.replace(":id_data", id);
+                //     $.ajax({
+                //             method: "PUT",
+                //             url: url,
+                //             data: {
+                //                 _token: '{{ csrf_token() }}',
+                //                 konfirmasi: konfrimasi,
+                //             }
+                //         })
+                //         .done(function(data) {
+                //             location.reload()
+                //         })
+                // })
             });
         </script>
     @endpush

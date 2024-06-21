@@ -36,9 +36,10 @@
                 <td>{{ $user->no_telepon}}</td>
                 
                 <td>
-                    <img src="{{ asset('storage/users/' . $user->foto) }}" alt="Foto {{ $user->name }}" style="width: 100px;
-                    height: 200;">
+                    <img src="{{ asset('storage/users/' . $user->foto) }}" alt="Foto {{ $user->name }}" style="width: 100px; height: 200;">
                 </td>
+                
+                
                 
             </tr>
         @endforeach

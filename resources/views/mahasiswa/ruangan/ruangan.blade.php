@@ -29,17 +29,17 @@
                 </div>
 
                 <div class="panel-body">
-                    @foreach ($gedungs as $gedung)
+                    @foreach ($ruangans as $ruangan)
                     <div class="panel row">
                         <div class="">
-                            @if ($gedung->foto)
+                            @if ($ruangan->foto_ruangan)
                                 <div class="widget-products-item col-xs-12 col-sm-6 col-md-4 col-xl-3 m-b-0 p-l-0">
                                     <a href="#" class="widget-products-image">
-                                        <img src="{{ asset('storage/gedungs/' . $gedung->foto) }}">
+                                        <img src="{{ asset('storage/ruangans/' . $ruangan->foto_ruangan) }}">
                                         <span class="widget-products-overlay"></span>
                                     </a>
                                 </div>
-                                {{-- <img src="{{ asset('storage/ruangans/' . $gedung->foto_ruangan) }}" alt=""
+                                {{-- <img src="{{ asset('storage/ruangans/' . $ruangan->foto_ruangan) }}" alt=""
                                     class="rounded col-md-4" style="max-width: 250px"> --}}
                             @else
                                 <div class="widget-products-item col-xs-12 col-sm-6 col-md-4 col-xl-3 m-b-0 p-l-0">
@@ -54,22 +54,20 @@
                         <div class="col-md-6">
                             <div class="widget-notifications-item">
                                 <div class="widget-notifications-title text-primary font-size-18">
-                                    {{ $gedung->nama }}
+                                    {{ $ruangan->nama_ruangan }}
                                 </div>
-                                {{-- <div class="widget-notifications-description">
-                                    <i class="fa fa-location-dot"></i> {{ $gedung->gedung->nama }} - Lantai
-                                    {{ $gedung->lantai }}
+                                <div class="widget-notifications-description">
+                                    <i class="fa fa-location-dot"></i> {{ $ruangan->gedung->nama }} - Lantai
+                                    {{ $ruangan->lantai }}
                                 </div>
                                 <div class="widget-notifications-description m-t-1"><strong>Kapasitas</strong>:
-                                    {{ $gedung->kapasitas }} Orang</div>
+                                    {{ $ruangan->kapasitas }} Orang</div>
                                 <div class="widget-notifications-description"><strong>Luas</strong>:
-                                    {{ $gedung->luas }} Meter&sup2;</div> --}}
-                                <div class="widget-notifications-description"><strong>Lokasi</strong>:
-                                    {{ $gedung->lokasi }}</div>
-                                <div class="widget-notifications-description"><strong>Jumlah Lantai</strong>:
-                                    {{ $gedung->jumlah_lantai }} Lantai</div>
-                                <a href="{{ route('ruangan.byGedung', encrypt($gedung->id)) }}"
-                                    class="btn btn-primary btn-sm m-t-1">Lihat</a>
+                                    {{ $ruangan->luas }} Meter&sup2;</div>
+                                <div class="widget-notifications-description"><strong>Tipe</strong>:
+                                    {{ $ruangan->tipe }}</div>
+                                <a href="{{ route('mahasiswa.ruangan.show', encrypt($ruangan->id)) }}"
+                                    class="btn btn-primary btn-sm m-t-1">Booking</a>
                             </div>
                         </div>
                     </div>
@@ -92,7 +90,7 @@
         </div>
         <div class="col-md-12">
             <div class="text-center">
-                {{ $gedungs->links() }}
+                {{ $ruangans->links() }}
 
             </div>
         </div>

@@ -19,8 +19,8 @@
                         <img src="{{ asset('storage/users/' . auth()->user()->foto) }}" alt=""
                             class="px-navbar-image">
                     @else
-                        <!-- Ganti URL ini dengan URL foto default dari Unsplash -->
-                        <img src="{{ asset('img/tekno.png') }}" alt="" class="px-navbar-image">
+                        
+                        <img src="{{ asset('img/Tekno.png') }}" alt="" class="px-navbar-image">
                     @endif
                     <span class="hidden-md">{{ auth()->user()->name }}</span>
                 </a>

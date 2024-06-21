@@ -13,11 +13,14 @@
             </div>
             <div class="panel">
                 <div class="panel-heading">
-                    <div class="row">
+                    <div class="col">
                         <div class="col-sm-6 panel-title">Data Booking</div>
                         <div class="col-sm-6 card-tools text-right">
+                            <a href="{{ route('admin.scan.qrcode') }}" class="btn btn-sm btn-primary"> <i class="fa fa-qrcode"></i> Scan QrCode</a>
                         </div>
+                        
                     </div>
+                    
                 </div>
                 <div class="panel-body">
                     <div class="table-primary">
@@ -29,8 +32,6 @@
     </div>
 
     <div id="tempat-modal"></div>
-
-
 
     @push('js')
         <script>
@@ -44,10 +45,10 @@
                     }
                 });
 
-                $(document).on("click", ".btn-delete", function() {
+                $(document).on("click", ".btn-confirm", function() {
                     var id = $(this).attr("data-id");
                     // console.log(id);
-                    var url = "{{ route('admin.peminjaman.show', ':id_data') }}";
+                    var url = "{{ route('admin.booking.show', ':id_data') }}";
                     url = url.replace(":id_data", id);
                     $.ajax({
                             method: "GET",
@@ -58,28 +59,6 @@
                             $('#modal_show').modal('show');
                         })
                 })
-
-
-
-                $(document).on("click", ".btn-confirm", function() {
-                    var id = $(this).attr("data-id");
-                    var konfrimasi = $(this).attr("data-con");
-                    // alert(konfrimasi);
-                    var url = "{{ route('admin.booking.update', ':id_data') }}";
-                    url = url.replace(":id_data", id);
-                    $.ajax({
-                            method: "PUT",
-                            url: url,
-                            data: {
-                                _token: '{{ csrf_token() }}',
-                                konfirmasi: konfrimasi,
-                            }
-                        })
-                        .done(function(data) {
-                            location.reload()
-                        })
-                })
-
             });
         </script>
     @endpush

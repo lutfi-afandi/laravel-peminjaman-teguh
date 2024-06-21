@@ -21,14 +21,18 @@ class BookingController extends Controller
         $title = "Data Booking";
 
         if (Auth::user()->level == 'admin') {
-            $dataBooking = PeminjamanRuangan::with(['user', 'ruangan.gedung'])->get();
+            $dataBooking = PeminjamanRuangan::with(['user', 'ruangan.gedung'])
+                ->orderBy('id', 'desc')
+                ->get();
         } elseif (Auth::user()->level == 'baak') {
             $dataBooking = PeminjamanRuangan::with(['user', 'ruangan.gedung'])
                 ->whereHas('ruangan', function ($query) {
                     $query->where('unit_kerja_id', Auth::user()->unitkerja_id);
                 })
+                ->orderBy('id', 'desc')
                 ->get();
         }
+        
 
         return view('admin.booking.data', compact(
             'title',
@@ -136,9 +140,15 @@ public function cetakLaporan(Request $request)
      * @param  \App\Models\PeminjamanRuangan  $peminjamanRuangan
      * @return \Illuminate\Http\Response
      */
-    public function show(PeminjamanRuangan $peminjamanRuangan)
+    public function show(Request $request, $id)
     {
-        //
+        $title = "Konfirmasi Peminjaman";
+        $dataPinjam = PeminjamanRuangan::where("id", $id)->first();
+        $view = view('admin.booking.confirm', compact('title', 'dataPinjam'))->render();
+        return response()->json([
+            'success' => true,
+            'html' => $view
+        ]);
     }
 
     /**
@@ -147,9 +157,14 @@ public function cetakLaporan(Request $request)
      * @param  \App\Models\PeminjamanRuangan  $peminjamanRuangan
      * @return \Illuminate\Http\Response
      */
-    public function edit(PeminjamanRuangan $peminjamanRuangan)
+    public function edit(Request $request, $id)
     {
-        //
+        $title = "Konfirmasi Peminjaman";
+        $dataPinjam = PeminjamanRuangan::where("id", decrypt($id))->first();
+        // return view('admin.booking.update', compact('title', 'dataPinjam'))->render();
+        return view('admin.booking.update', compact(
+            'title', 'dataPinjam'
+        ));
     }
 
     /**
@@ -161,11 +176,11 @@ public function cetakLaporan(Request $request)
      */
     public function update(Request $request, $id)
     {
-        // dd($request->konfirmasi, $id);
+        // dd($request->status, $id);
         PeminjamanRuangan::where("id", $id)->update([
-            'status' => $request->konfirmasi,
+            'status' => $request->status,
         ]);
-        return redirect('admin.booking.index')->with(['msg' => 'Dikonfirmasi', 'class' => 'alert-success']);
+        return redirect()->route('admin.booking.index')->with(['msg' => 'Dikonfirmasi', 'class' => 'alert-success']);
     }
 
     /**

@@ -2,24 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cetak Booking Ruangan</title>
+    <meta name="viewport" content="width=1024, initial-scale=1">
+    <title>Cetak Peminjaman Ruangan</title>
 
     <style>
         /* Style untuk kontainer */
         .container {
             position: relative;
-            width: 85%;
+            width: 90%;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
         }
 
         .qr-code {
-        position: absolute; /* Tambahkan ini untuk membuat posisi absolut */
-        bottom: 10px; /* Tambahkan ini untuk menjaga jarak dari bawah */
-        right: 10px; /* Tambahkan ini untuk menjaga jarak dari kanan */
-    }
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
 
         /* Style untuk judul */
         h1 {
@@ -46,11 +46,11 @@
         .data {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start; /* Agar teks di aling di atas */
+            align-items: flex-start;
         }
 
         .data > div {
-            width: 48%; /* Atur lebar agar cocok dengan ruang yang tersedia */
+            width: 48%;
         }
 
         .data p {
@@ -60,10 +60,9 @@
         }
 
         .data p strong {
-            width: 120px; /* Lebar untuk teks */
-            display: inline-block; /* Agar width bekerja */
+            width: 120px;
+            display: inline-block;
         }
-
        
     </style>
 </head>
@@ -79,27 +78,23 @@
         
         <!-- Data -->
         <div class="data">
-           
             <div>
                 <p><strong>Hari</strong>: {{ \Carbon\Carbon::parse($dataBooking->waktu_pinjam)->isoFormat('dddd, D MMMM YYYY') }}</p>
                 <p><strong>Waktu</strong>:  <span
                     class="text-primary">{{ date('H:i', strtotime($dataBooking->waktu_pinjam)) . ' s/d ' . date('H:i', strtotime($dataBooking->waktu_selesai)) }} WIB</span> <br></p>
                 <p><strong>Ruangan</strong>: {{ $dataBooking->ruangan->nama_ruangan }}</p>
-                {{-- <p><strong>Gedung</strong>: {{ $dataBooking->ruangan->gedung->nama}}||Lantai {{$dataBooking->ruangan->lantai  }}</p> --}}
+               
                 <p><strong>Kegiatan</strong>: {{ $dataBooking->kegiatan }}</p>
             </div>
             <div>
                 <p><strong>Nama</strong>: {{ $dataBooking->user->name }}</p>
-                <p><strong>Prodi</strong>:</p>
-                <p><strong>NPM</strong>:</p>
+                <p><strong>Prodi</strong>: {{ $dataBooking->user->unitkerja->nama }}</p>
+                <p><strong>NPM</strong>: {{ $dataBooking->user->username }}</p>
                 <p><strong>No HP</strong>:  {{ $dataBooking->user->no_telepon }}</p>
             </div>
-            
         </div>
 
         <p></p>
-       
-        
         <p>Catatan :</p>
         <ol>
             <li>Formulir ini diserahkan pada saat Peminjaman dan Pengembalian</li>
@@ -107,8 +102,9 @@
             <li>Apabila barang/alat hilang, pengguna ruangan wajib mengganti</li>
         </ol>
 
-        <div class="visible-print text-center qr-code">
-            {!! QrCode::size(85)->generate('http://laravel-e-peminjaman.test/CetakBooking/'.encrypt($dataBooking->id)); !!}
+       
+        <div class="qr-code">
+            {!! QrCode::size(100)->generate(env('APP_URL'). 'master/booking/'.encrypt($dataBooking->id). '/edit'); !!}
         </div>
 
     </div>

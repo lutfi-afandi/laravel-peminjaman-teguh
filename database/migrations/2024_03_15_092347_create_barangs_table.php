@@ -18,8 +18,9 @@ class CreateBarangsTable extends Migration
             $table->id();
             $table->string('kode', 50)->unique();
             $table->string('nama', 255);
-            $table->decimal('harga', 10, 2);
+            $table->decimal('harga', 10, 2)->nullable();
             $table->double('jumlah')->nullable();
+            $table->double('tersedia')->nullable();
             $table->unsignedBigInteger('ruangan_id');
             $table->unsignedBigInteger('kategori_id');
             $table->string('penanggung_jawab', 50)->nullable();
@@ -29,7 +30,7 @@ class CreateBarangsTable extends Migration
             $table->string('kondisi', 20)->nullable();
             $table->text('deskripsi')->nullable();
             $table->integer('status')->default(1);
-            $table->string('foto')->nullable();
+            $table->string('foto', 255)->nullable();
             $table->timestamps();
         });
     }

@@ -1,4 +1,3 @@
-
 <table class="table table-striped table-bordered" id="datatables">
     <thead>
         <tr>
@@ -10,7 +9,6 @@
             <th>Level</th>
             <th>Unit Kerja</th>
             <th>No Telepon</th>
-            <th>Foto</th>
         </tr>
     </thead>
     <tbody>
@@ -22,10 +20,10 @@
                         <i class="fa fa-edit"></i>
                     </a>
 
-                    @if($user->id !== auth()->id())
-                    <a href="javascript:;" data-id="{{ $user->id }}" class="btn btn-danger btn-xs btn-delete">
-                        <i class="fa fa-trash"></i>
-                    </a>
+                    @if ($user->id !== auth()->id())
+                        <a href="javascript:;" data-id="{{ $user->id }}" class="btn btn-danger btn-xs btn-delete">
+                            <i class="fa fa-trash"></i>
+                        </a>
                     @endif
                 </td>
                 <td>{{ $user->name }}</td>
@@ -33,17 +31,9 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->level }}</td>
                 <td>{{ $user->unitkerja->kode ?? '-' }}</td>
-                <td>{{ $user->no_telepon}}</td>
-                
-                <td>
-                    <img src="{{ asset('storage/users/' . $user->foto) }}" alt="Foto {{ $user->name }}" style="width: 100px; height: 200;">
-                </td>
-                
-                
-                
+                <td>{{ $user->no_telepon }}</td>
+
             </tr>
         @endforeach
     </tbody>
 </table>
-
-

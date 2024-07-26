@@ -15,6 +15,8 @@ class CreateUnitkerjasTable extends Migration
     {
         Schema::create('unitkerjas', function (Blueprint $table) {
             $table->id();
+            $table->string('kode', 30)->nullable();
+            $table->string('nama', 255)->nullable();
             $table->timestamps();
         });
     }

@@ -64,7 +64,7 @@ class RuanganController extends Controller
             'nama_ruangan'     => 'required|max:255',
             'kode_ruangan'     => 'required|unique:ruangans',
             'gedung_id'     => 'required',
-            'unit_kerja_id'     => 'required',
+            'unitkerja_id'     => 'required',
             'lantai'     => 'required',
             'kapasitas'     => 'required',
             'luas'     => '',
@@ -133,7 +133,7 @@ class RuanganController extends Controller
         $validatedData  = $request->validate([
             'nama_ruangan'     => 'required|max:255',
             'gedung_id'     => 'required',
-            'unit_kerja_id'     => 'required',
+            'unitkerja_id'     => 'required',
             'lantai'     => 'required',
             'kapasitas'     => 'required',
             'luas'     => '',

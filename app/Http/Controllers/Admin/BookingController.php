@@ -14,7 +14,7 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    
+
 
     public function index()
     {
@@ -27,12 +27,12 @@ class BookingController extends Controller
         } elseif (Auth::user()->level == 'baak') {
             $dataBooking = PeminjamanRuangan::with(['user', 'ruangan.gedung'])
                 ->whereHas('ruangan', function ($query) {
-                    $query->where('unit_kerja_id', Auth::user()->unitkerja_id);
+                    $query->where('unitkerja_id', Auth::user()->unitkerja_id);
                 })
                 ->orderBy('id', 'desc')
                 ->get();
         }
-        
+
 
         return view('admin.booking.data', compact(
             'title',
@@ -45,7 +45,7 @@ class BookingController extends Controller
     public function laporan()
     {
         $title = "Laporan";
-        
+
         return view('admin.booking.laporan', compact(
             'title',
         ));
@@ -63,7 +63,7 @@ class BookingController extends Controller
         $endDate = $request->end_date;
 
         // Query untuk mengambil data sesuai rentang waktu
-        
+
         $query = PeminjamanRuangan::with('ruangan', 'user')
             ->whereBetween('waktu_pinjam', [$startDate, $endDate]);
 
@@ -82,35 +82,36 @@ class BookingController extends Controller
 
 
 
-public function cetakLaporan(Request $request)
-{
-    $title = "Cetak Laporan";
-    // Validasi input
-    $request->validate([
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after_or_equal:start_date',
-    ]);
+    public function cetakLaporan(Request $request)
+    {
+        $title = "Cetak Laporan";
+        // Validasi input
+        $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
 
-    $startDate = $request->start_date;
-    $endDate = $request->end_date;
+        $startDate = $request->start_date;
+        $endDate = $request->end_date;
 
-    // Query untuk mengambil data sesuai rentang waktu
-    $query = PeminjamanRuangan::with('ruangan', 'user')
-        ->whereBetween('waktu_pinjam', [$startDate, $endDate]);
+        // Query untuk mengambil data sesuai rentang waktu
+        $query = PeminjamanRuangan::with('ruangan', 'user')
+            ->whereBetween('waktu_pinjam', [$startDate, $endDate]);
 
-    // Jika status dipilih, tambahkan kondisi where untuk status
-    if ($request->has('status')) {
-        $status = $request->status;
-        $query->where('status', $status);
+        // Jika status dipilih, tambahkan kondisi where untuk status
+        if ($request->has('status')) {
+            $status = $request->status;
+            $query->where('status', $status);
+        }
+
+        // Ambil data sesuai query
+        $dataPeminjaman = $query->get();
+
+        return view('admin.booking.cetakLaporan', compact(
+            'title',
+            'dataPeminjaman'
+        ));
     }
-
-    // Ambil data sesuai query
-    $dataPeminjaman = $query->get();
-
-    return view('admin.booking.cetakLaporan', compact(
-        'title', 'dataPeminjaman'
-    ));
-}
 
 
     /**
@@ -163,7 +164,8 @@ public function cetakLaporan(Request $request)
         $dataPinjam = PeminjamanRuangan::where("id", decrypt($id))->first();
         // return view('admin.booking.update', compact('title', 'dataPinjam'))->render();
         return view('admin.booking.update', compact(
-            'title', 'dataPinjam'
+            'title',
+            'dataPinjam'
         ));
     }
 

@@ -320,7 +320,7 @@ CREATE TABLE `ruangans` (
   `tipe` varchar(50) DEFAULT NULL,
   `kondisi` varchar(50) NOT NULL,
   `status` int(11) NOT NULL DEFAULT 1,
-  `unit_kerja_id` bigint(20) DEFAULT NULL,
+  `unitkerja_id` bigint(20) DEFAULT NULL,
   `bisa_pinjam` tinyint(1) NOT NULL DEFAULT 0,
   `foto_ruangan` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -331,7 +331,7 @@ CREATE TABLE `ruangans` (
 -- Dumping data untuk tabel `ruangans`
 --
 
-INSERT INTO `ruangans` (`id`, `kode_ruangan`, `nama_ruangan`, `gedung_id`, `lantai`, `kapasitas`, `luas`, `tipe`, `kondisi`, `status`, `unit_kerja_id`, `bisa_pinjam`, `foto_ruangan`, `created_at`, `updated_at`) VALUES
+INSERT INTO `ruangans` (`id`, `kode_ruangan`, `nama_ruangan`, `gedung_id`, `lantai`, `kapasitas`, `luas`, `tipe`, `kondisi`, `status`, `unitkerja_id`, `bisa_pinjam`, `foto_ruangan`, `created_at`, `updated_at`) VALUES
 (1, 'LBD', 'Lab Bisnis Digital', 2, '2', 30, 90.00, 'Lab', 'Baik', 1, 1, 1, 'Lab Bisnis Digital-233006new.jpg', NULL, '2024-06-02 16:30:06'),
 (3, 'LAB1GSG', 'Lab Komputer 1 GSG', 12, '3', 40, 15.00, 'Lab', 'Baik', 1, 4, 1, 'Lab Komputer 1 GSG-232343new.webp', '2024-03-18 04:28:03', '2024-06-02 16:23:43'),
 (4, 'AulaA', 'Aula A', 2, '4', 200, NULL, 'Auditorium', 'Baik', 1, 1, 1, 'Aula A-232431new.webp', '2024-03-18 04:29:20', '2024-06-02 16:24:31'),

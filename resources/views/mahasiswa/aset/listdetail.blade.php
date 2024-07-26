@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive ">
     <table class="table table-bordered table-sm">
         <thead>
             <tr class="bg-success">
@@ -17,8 +17,8 @@
                     <td>{{ $item->jml_barang }}</td>
                     <td>{{ $item->barang->ruangan->nama_ruangan }}</td>
                     <td>
-                        <a href="javascript:;" class="btn btn-xs btn-danger btn-outline btn-3d btn-hapus"
-                            data-id="{{ $item->id }}">x</a>
+                        <a href="javascript:;" class="btn btn-xs btn-danger  btn-hapus" data-id="{{ $item->id }}"><i
+                                class="fa fa-trash"></i></a>
                     </td>
                 </tr>
             @endforeach

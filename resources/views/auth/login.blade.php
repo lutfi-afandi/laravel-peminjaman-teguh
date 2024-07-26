@@ -1,172 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Login | E-Peminjaman</title>
+    <!-- CSS files -->
+    <link href="tabler/css/tabler.min.css?1692870487" rel="stylesheet" />
+    <link href="tabler/css/tabler-flags.min.css?1692870487" rel="stylesheet" />
+    <link href="tabler/css/tabler-payments.min.css?1692870487" rel="stylesheet" />
+    <link href="tabler/css/tabler-vendors.min.css?1692870487" rel="stylesheet" />
+    <link href="tabler/css/demo.min.css?1692870487" rel="stylesheet" />
 
-    <link
-        href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin"
-        rel="stylesheet" type="text/css">
-    <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
-    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-
-    <link href="{{ asset('TemplatePixel/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('TemplatePixel/css/pixeladmin.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('TemplatePixel/css/widgets.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('TemplatePixel/css/themes/clean.min.css') }}" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/holder/2.9.0/holder.js"></script>
-    <script src="{{ asset('TemplatePixel/pace/pace.min.js') }}"></script>
-    <script src="{{ asset('TemplatePixel/demo/demo.js') }}"></script>
-
-    <!-- Custom styling -->
+    <link rel="icon" href="{{ asset('logo.png') }}" type="image/x-icon">
     <style>
-        .page-signin-modal {
-            position: relative;
-            top: auto;
-            right: auto;
-            bottom: auto;
-            left: auto;
-            z-index: 1;
-            display: block;
+        @import url('https://rsms.me/inter/inter.css');
+
+        :root {
+            --tblr-font-sans-serif: 'Inter Var', -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif;
         }
 
-        .page-signin-form-group {
-            position: relative;
-        }
-
-        .page-signin-icon {
-            position: absolute;
-            line-height: 21px;
-            width: 36px;
-            border-color: rgba(0, 0, 0, .14);
-            border-right-width: 1px;
-            border-right-style: solid;
-            left: 1px;
-            top: 9px;
-            text-align: center;
-            font-size: 15px;
-        }
-
-        html[dir="rtl"] .page-signin-icon {
-            border-right: 0;
-            border-left-width: 1px;
-            border-left-style: solid;
-            left: auto;
-            right: 1px;
-        }
-
-        html:not([dir="rtl"]) .page-signin-icon+.page-signin-form-control {
-            padding-left: 50px;
-        }
-
-        html[dir="rtl"] .page-signin-icon+.page-signin-form-control {
-            padding-right: 50px;
-        }
-
-        #page-signin-forgot-form {
-            display: none;
-        }
-
-        /* Margins */
-
-        .page-signin-modal>.modal-dialog {
-            margin: 30px 10px;
-        }
-
-        @media (min-width: 544px) {
-            .page-signin-modal>.modal-dialog {
-                margin: 60px auto;
-            }
+        body {
+            font-feature-settings: "cv03", "cv04", "cv11";
         }
     </style>
-    <!-- / Custom styling -->
 </head>
 
-<body>
-    <div class="page-signin-modal modal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="box m-a-0">
-                    <div class="box-row">
+<body class=" d-flex flex-column"
+    style="background: rgb(64,165,120);
+background: linear-gradient(339deg, rgba(64,165,120,1) 0%, rgba(156,219,166,1) 30%, rgba(80,180,152,1) 77%, rgba(0,103,105,1) 100%);">
+    <script src="tabler/js/demo-theme.min.js?1692870487"></script>
+    <div class="page
+    page-center">
+        <div class="container container-tight py-4">
+            <div class="text-center mb-4">
+                <a href="#" class="navbar-brand navbar-brand-autodark">
+                    <img src="logo-brand.png" width="100%" height="52" alt="Tabler" class="navbar-brand-image"
+                        style="height: 5rem !important">
+                </a>
+            </div>
+            <div class="card card-md">
+                <div class="card-body">
+                    <h2 class="h2 text-center mb-4">E-Peminjaman</h2>
+                    @if (session('status'))
+                        <div class="alert alert-info alert-dark">
+                            <button type="button" class="close" data-dismiss="alert">×</button>
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <form action="{{ route('login') }}" method="post">
+                        @method('post')
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-user-square" width="44" height="44"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M9 10a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                        <path d="M6 21v-1a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v1" />
+                                        <path
+                                            d="M3 5a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14z" />
+                                    </svg>
+                                </span>
+                                <input type="text" value="{{ old('email') }}" name="email"
+                                    class="form-control  @error('email') is-invalid @enderror" placeholder="Username"
+                                    autofocus>
 
-                        @if (session('status'))
-                            <div class="alert alert-info alert-dark">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session('status') }}
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                        @endif
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label">
+                                Password
 
-                        <div class="box-cell col-md-5 bg-info p-a-4">
-                            <div class="text-xs-center text-md-left">
-                                <a class="px-demo-brand px-demo-brand-lg" href="">
-                                    <img src="{{ asset('img/logo.png') }}"
-                                        alt="Logo" height="35" />
-                                </a>
-                                <div class="font-size-15 m-t-2">E-Peminjaman</div>
+                            </label>
+                            <div class="input-group input-group-flat">
+                                <span class="input-group-text">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-lock-square" width="44" height="44"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M8 11m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v3a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z" />
+                                        <path d="M10 11v-2a2 2 0 1 1 4 0v2" />
+                                        <path
+                                            d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+                                    </svg>
+                                </span>
+                                <input type="password" name="password" class="form-control " placeholder="Password">
+
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
-                            <ul class="list-group m-t-0 m-b-0 visible-md visible-lg visible-xl">
-                                <li class="list-group-item p-x-0 p-b-0 b-a-0">
-                                    <i class="list-group-icon fa fa-check text-white"></i> Certificate Validation
-                                </li>
-                                <li class="list-group-item p-x-0 p-b-0 b-a-0">
-                                    <i class="list-group-icon fa fa-file-text-o text-white"></i> SCSS source files
-                                </li>
-                                <li class="list-group-item p-x-0 p-b-0 b-a-0">
-                                    <i class="list-group-icon fa fa-outdent text-white"></i> RTL direction support
-                                </li>
-                                <li class="list-group-item p-x-0 p-b-0 b-a-0">
-                                    <i class="list-group-icon fa fa-heart text-white"></i> Crafted with love
-                                </li>
-                            </ul>
                         </div>
 
-                        <div class="box-cell col-md-7">
-
-                            <form action="{{ route('login') }}" method="post" class="p-a-4" id="page-signin-form">
-                                @method('post')
-                                @csrf
-                                <h4 class="m-t-0 m-b-4 text-xs-center font-weight-semibold">Sign In to your Account</h4>
-
-                                <fieldset
-                                    class="page-signin-form-group form-group form-group-lg @error('email') has-error @enderror">
-                                    <div class="page-signin-icon text-muted"><i class="ion-person"></i></div>
-                                    <input type="text" value="{{ old('email') }}" name="email"
-                                        class="page-signin-form-control form-control" placeholder="Username">
-                                    @error('email')
-                                        <div class="form-message">{{ $message }}</div>
-                                    @enderror
-                                </fieldset>
-
-                                <fieldset
-                                    class="page-signin-form-group form-group form-group-lg @error('password') has-error @enderror">
-                                    <div class="page-signin-icon text-muted"><i class="ion-asterisk"></i></div>
-                                    <input type="password" name="password" class="page-signin-form-control form-control"
-                                        placeholder="Password">
-                                    @error('password')
-                                        <div class="form-message">{{ $message }}</div>
-                                    @enderror
-                                </fieldset>
-
-                                <button type="submit" class="btn btn-block btn-lg btn-info m-t-3">Sign In</button>
-                            </form>
-
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary w-100">Sign in</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
+                <div class="hr-text"></div>
+
             </div>
 
         </div>
     </div>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="{{ asset('TemplatePixel/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('TemplatePixel/js/pixeladmin.min.js') }}"></script>
+    <!-- Libs JS -->
+    <!-- Tabler Core -->
+    <script src="tabler/js/tabler.min.js?1692870487" defer></script>
+    <script src="tabler/js/demo.min.js?1692870487" defer></script>
 </body>
 
 </html>

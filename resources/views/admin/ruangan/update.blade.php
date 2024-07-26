@@ -123,18 +123,18 @@
                                     </small>
                                 @enderror
                             </div>
-                            <div class="col-md-6  @error('unit_kerja_id') has-error @enderror">
-                                <label for="unit_kerja_id" class=" control-label">Unit Kerja</label>
-                                <select name="unit_kerja_id" id="unit_kerja_id" class="form-control">
+                            <div class="col-md-6  @error('unitkerja_id') has-error @enderror">
+                                <label for="unitkerja_id" class=" control-label">Unit Kerja</label>
+                                <select name="unitkerja_id" id="unitkerja_id" class="form-control">
                                     <option value="">-Pilih Unit Kerja-</option>
                                     @foreach ($unitkerjas as $uk)
                                         <option value="{{ $uk->id }}"
-                                            {{ old('kondisi', $ruangan->unit_kerja_id) == $uk->id ? 'selected' : '' }}>
+                                            {{ old('kondisi', $ruangan->unitkerja_id) == $uk->id ? 'selected' : '' }}>
                                             {{ $uk->kode }} - {{ $uk->nama }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('unit_kerja_id')
+                                @error('unitkerja_id')
                                     <small class="form-message">
                                         {{ $message }}
                                     </small>

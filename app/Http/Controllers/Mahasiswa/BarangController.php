@@ -22,7 +22,7 @@ class BarangController extends Controller
             ->where('user_id', $id)
             ->orderBy('id', 'desc')
             ->get();
-
+        // dd($dataPeminjaman);
         return view('mahasiswa.aset.index', compact(
             'title',
             'barangs',

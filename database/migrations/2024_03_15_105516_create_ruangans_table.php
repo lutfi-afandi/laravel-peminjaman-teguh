@@ -15,22 +15,18 @@ class CreateRuangansTable extends Migration
     {
         Schema::create('ruangans', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_ruangan', 50)->unique(); // Unique identifier for the room
-            $table->string('nama_ruangan', 255); // Name of the room
-
-            $table->unsignedBigInteger('gedung_id'); // Foreign key referencing the 'id' column in the 'gedungs' table
-
-            $table->string('lantai', 50); // Floor level of the room
-            $table->integer('kapasitas'); // Maximum occupancy of the room
-            $table->decimal('luas', 10, 2)->nullable(); // Area of the room in square meters
-
-            $table->string('tipe', 50); // Type of room (e.g., office, conference room, laboratory)
-            $table->string('kondisi', 50); // Condition of the room (e.g., good, fair, poor)
-
-            $table->integer('status')->default(1); // Status of the room (active or inactive)
-            $table->unsignedBigInteger('unit_kerja_id'); // Foreign key referencing the 'id' column in the 'unit_kerjas' table (nullable)
-
-            $table->string('foto_ruangan')->nullable(); // Path or URL to the room's photo (nullable)
+            $table->string('kode_ruangan', 50)->unique();
+            $table->string('nama_ruangan', 255);
+            $table->unsignedBigInteger('gedung_id');
+            $table->string('lantai', 50);
+            $table->integer('kapasitas');
+            $table->decimal('luas', 10, 2)->nullable();
+            $table->string('tipe', 50)->nullable();
+            $table->string('kondisi', 50);
+            $table->integer('status')->default(1);
+            $table->unsignedBigInteger('unitkerja_id')->nullable();
+            $table->boolean('bisa_pinjam')->default(false);
+            $table->string('foto_ruangan', 255)->nullable();
             $table->timestamps();
         });
     }

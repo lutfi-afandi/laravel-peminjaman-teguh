@@ -15,7 +15,13 @@ class PeminjamanController extends Controller
     public function index()
     {
         $id = auth()->user()->id;
-        $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang', 'ruangan'])
+        $dataRuangan = Ruangan::with('gedung')->get();
+
+        $dataPeminjaman = Peminjaman::with([
+            'user',
+            'detail_peminjaman.barang',
+
+        ])
             ->where('user_id', $id)
             ->orderBy('id', 'desc')
             ->get();
@@ -42,24 +48,35 @@ class PeminjamanController extends Controller
 
     public function store(Request $request)
     {
-        // dd(date('Y-m-d H:i', strtotime($request->waktu_peminjaman)));
         $dataValid =  $request->validate([
-            'ruangan_id' => 'required',
+            // 'ruangan_id' => 'required',
             'kegiatan' => 'required',
+            'no_peminjam' => 'required',
             'waktu_peminjaman' => 'required',
             'waktu_pengembalian' => 'required',
-            // 'jam_peminjaman' => 'required',
-            // 'jam_pengembalian' => 'required',
         ]);
         $dataValid['user_id'] = auth()->user()->id;
         $dataValid['waktu_peminjaman'] = date('Y-m-d H:i', strtotime($request->waktu_peminjaman));
         $dataValid['waktu_pengembalian'] = date('Y-m-d H:i', strtotime($request->waktu_pengembalian));
-        // $dataValid['jam_peminjaman'] = date('H:i', strtotime($request->jam_peminjaman));
-        // $dataValid['jam_pengembalian'] = date('H:i', strtotime($request->jam_pengembalian));
-        
-        Peminjaman::create($dataValid);
 
-        return response()->json(['message' => 'Data peminjaman berhasil disimpan'], 200);
+        $peminjaman = Peminjaman::create($dataValid);
+
+        if ($peminjaman) {
+            // Tangkap ID dari data yang baru saja dibuat
+            $newPeminjamanId = $peminjaman->id;
+            // Kembalikan respons JSON dengan status sukses dan ID yang dienkripsi
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data peminjaman berhasil disimpan',
+                'redirect_url' => route('mahasiswa.peminjaman.show', encrypt($newPeminjamanId))
+            ]);
+        } else {
+            // Jika gagal menyimpan, kembalikan respons JSON
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Data peminjaman gagal disimpan'
+            ]);
+        }
     }
 
 
@@ -68,7 +85,7 @@ class PeminjamanController extends Controller
         $title = 'Detail peminjaman barang';
         $barangs = Barang::with('ruangan.gedung')->get();
 
-        $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang','ruangan'])
+        $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang'])
             ->where('id', decrypt($id))
             ->first();
         // dd($dataPeminjaman->kegiatan);
@@ -124,20 +141,19 @@ class PeminjamanController extends Controller
         ]);
     }
 
-    
 
-public function PrintPdf($id)
-{
-    try {
-        $title = 'Cetak Peminjaman Aset';
-        $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang'])
-            ->where('id', decrypt($id))
-            ->firstOrFail();
 
-        return view('mahasiswa.aset.cetakpdf', compact('title', 'dataPeminjaman'));
-    } catch (ModelNotFoundException $e) {
-        abort(404);
+    public function PrintPdf($id)
+    {
+        try {
+            $title = 'Cetak Peminjaman Aset';
+            $dataPeminjaman = Peminjaman::with(['user', 'detail_peminjaman.barang'])
+                ->where('id', decrypt($id))
+                ->firstOrFail();
+
+            return view('mahasiswa.aset.cetakpdf', compact('title', 'dataPeminjaman'));
+        } catch (ModelNotFoundException $e) {
+            abort(404);
+        }
     }
-}
-
 }

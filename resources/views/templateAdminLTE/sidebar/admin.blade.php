@@ -1,4 +1,3 @@
-
 <li class="px-nav-item px-nav-dropdown {{ request()->is('master*') ? 'px-open' : '' }}">
     <a href="javascript:;"><i class="px-nav-icon fa fa-hdd-o"></i>
         <span class="px-nav-label">Peminjaman</span>
@@ -34,7 +33,7 @@
                     Laporan Peminjaman</span>
             </a>
         </li>
-        
+
     </ul>
 </li>
 
@@ -72,13 +71,7 @@
             </a>
         </li>
 
-        <li class="px-nav-item {{ request()->is('master/user*') ? 'active' : '' }}">
-            <a href="{{ route('admin.user.index') }}">
-                <span class="px-nav-label">
-                    <i class="dropdown-icon px-nav-icon fa fa-users"></i>
-                    User</span>
-            </a>
-        </li>
+
 
         <li class="px-nav-item {{ request()->is('master/unit*') ? 'active' : '' }}">
             <a href="{{ route('admin.unit.index') }}">
@@ -93,5 +86,13 @@
 <li class="px-nav-item {{ request()->is('master*') ? 'active' : '' }}">
     <a href="{{ route('admin.scan.qrcode') }}"><i class="px-nav-icon fa fa-qrcode"></i>
         <span class="px-nav-label">Scan Qr Code</span>
+    </a>
+</li>
+
+<li class="px-nav-item {{ request()->is('master/user*') ? 'active' : '' }}">
+    <a href="{{ route('admin.user.index') }}">
+        <span class="px-nav-label">
+            <i class="dropdown-icon px-nav-icon fa fa-users"></i>
+            User</span>
     </a>
 </li>

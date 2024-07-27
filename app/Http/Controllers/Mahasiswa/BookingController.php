@@ -68,6 +68,7 @@ class BookingController extends Controller
         $dataValid = $request->validate([
             'ruangan_id' => 'required',
             'kegiatan' => 'required',
+            'no_peminjam' => 'required',
             'waktu_pinjam' => 'required|date',
             'waktu_selesai' => 'required|date|after_or_equal:waktu_pinjam',
         ]);
@@ -113,6 +114,7 @@ class BookingController extends Controller
         $dataValid = $request->validate([
             'ruangan_id' => 'required',
             'kegiatan' => 'required',
+            'no_peminjam' => 'required',
             'waktu_pinjam' => 'required',
             'waktu_selesai' => 'required',
         ]);

@@ -15,8 +15,9 @@ class RuanganController extends Controller
     public function index()
     {
         $title = 'Halaman Ruangan';
-        
-        $gedungs = Gedung::paginate(2);
+
+        $gedungs = Gedung::paginate(10);
+        // $gedungs = Gedung::all();
         // dd($gedungs);
 
         return view('mahasiswa.ruangan.index', compact(
@@ -28,7 +29,7 @@ class RuanganController extends Controller
     // public function index()
     // {
     //     $title = 'Halaman Ruangan';
-        
+
     //     $ruangans = Ruangan::with('gedung')->where('bisa_pinjam', 1)->paginate(2);
 
     //     return view('mahasiswa.ruangan.index', compact(
@@ -148,7 +149,7 @@ class RuanganController extends Controller
     //         $dataBooking = PeminjamanRuangan::with(['user', 'ruangan.gedung'])
     //             ->where('id', $id)
     //             ->firstOrFail();
-            
+
     //             // dd($dataBooking);
 
     //         return view('mahasiswa.ruangan.cetakpdf', compact('title', 'dataBooking'));

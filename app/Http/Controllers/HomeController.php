@@ -72,16 +72,16 @@ class HomeController extends Controller
 
     public function profil_update(Request $request, $id)
     {
-       
+
         $dataUser = User::findOrFail(decrypt($id));
-        
+
         // dd($dataUser);
         // dd($request);
         // $validatedData = $request->validate([
         //     // 'no_telepon' => 'required',
         //     'foto'      => 'image|file|max:2048'
         // ]);
-        
+
         // dd($validatedData);
 
         // Jika email yang dimasukkan bukan milik pengguna yang sedang diupdate
@@ -92,23 +92,20 @@ class HomeController extends Controller
             // Jika email sudah digunakan dan bukan milik pengguna yang sedang diupdate
             if ($existingEmail && $existingEmail->id !== $dataUser->id) {
                 return redirect()->back()->withInput()->withErrors(['email' => 'Email sudah terpakai']);
-            } else 
-            {
+            } else {
                 $validatedData['email'] = $request->email;
             }
         }
 
-        
+
         if ($request->no_telepon != $dataUser->no_telepon) {
-            
+
             $existingUser = User::where('no_telepon', $request->no_telepon)->first();
             if ($existingUser && $existingUser->id !== $dataUser->id) {
                 return redirect()->back()->withInput()->withErrors(['no_telepon' => 'No Telepon sudah terpakai']);
-            } else 
-            {
+            } else {
                 $validatedData['no_telepon'] = $request->no_telepon;
             }
-            
         }
 
         if ($request->file('foto')) {

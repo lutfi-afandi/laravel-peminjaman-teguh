@@ -26,6 +26,7 @@ class PeminjamanController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
+        // dd($dataPeminjaman->isEmpty());
         $view = view('mahasiswa.aset.list_peminjaman', compact('dataPeminjaman'))->render();
         return response()->json([
             'success' => true,

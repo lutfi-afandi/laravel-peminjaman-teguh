@@ -70,7 +70,7 @@ Route::middleware(['auth_mahasiswa'])->group(function () {
     Route::get('/ruangan', [RuanganController::class, 'index'])->name('ruangan');
     Route::get('/ruangan/get', [RuanganController::class, 'get'])->name('ruangan.get');
     Route::get('/ruangan/byGedung/{id}', [RuanganController::class, 'byGedung'])->name('ruangan.byGedung');
-    
+
     Route::Resource('/ruangan/booking', BookingController::class)->names('mahasiswa.ruangan');
 
 

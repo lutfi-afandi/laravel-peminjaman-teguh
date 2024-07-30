@@ -24,6 +24,8 @@ class CreatePeminjamanBarangs extends Migration
             $table->string('nama_petugas', 255)->nullable()->comment('yang konfirmasi');
             $table->integer('konfirmasi')->default(1)->comment('1: menunggu, 2. dikonfirmasi/sedang dipinjam, 3. Ditolah, 4. Dikembalikan');
             $table->string('keterangan', 255)->nullable();
+            $table->string('unit_pustik', 50)->nullable();
+            $table->string('unit_kerumahtanggan', 50)->nullable();
             $table->date('tgl_pemesanan')->nullable();
             $table->date('tgl_peminjaman')->nullable();
             $table->time('jam_peminjaman')->nullable();

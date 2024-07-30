@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Barang;
 use App\Models\Gedung;
+use App\Models\PeminjamanRuangan;
 use App\Models\Ruangan;
 use Illuminate\Http\Request;
 use Auth;
@@ -26,20 +27,44 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         if (Auth::user()->level == 'admin' || Auth::user()->level == 'baak') {
-            $title = "Halaman Home";
-            // dd(Auth::user()->level);
-            $data = $this->menu();
-            $halaman = 'admin.home.index';
+            // $title = "Halaman Home";
+            // // dd(Auth::user()->level);
+            // $data = $this->menu();
+            // $events = [];
+
+            // $appointments = PeminjamanRuangan::with(['user', 'ruangan'])->where('status', 2)->get();
+            // // dd($appointments);
+
+            // foreach ($appointments as $appointment) {
+
+            //     $start = new DateTime($appointment->waktu_pinjam);
+            //     $end = new DateTime($appointment->waktu_selesai);
+
+            //     // Format waktu ke format ISO8601
+            //     $startIso = $start->format('Y-m-d\TH:i:s');
+            //     $endIso = $end->format('Y-m-d\TH:i:s');
+
+            //     $events[] = [
+            //         'title' => $appointment->kegiatan . ' (' . $appointment->user->name . ') - ' . $appointment->ruangan->nama_ruangan,
+            //         'start' => $startIso,
+            //         'end' => $endIso,
+            //     ];
+            // }
+
+            // $halaman = 'admin.home.index';
+
+            return redirect()->route('admin.dashboard');
         } else {
             $title = "Halaman Mahasiswa";
             $data = '';
+            $events = '';
             $halaman = 'mahasiswa.home.index';
+            return view($halaman, compact(
+                'title',
+                'data',
+                'events'
+            ));
         }
-
-        return view($halaman, compact(
-            'title',
-            'data'
-        ));
     }
 
     public function menu()

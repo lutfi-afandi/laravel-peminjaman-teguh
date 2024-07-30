@@ -18,17 +18,16 @@ class AdminSeeder extends Seeder
 
         // unit kerja
         DB::table('unitkerjas')->insert([
-            ['kode' => 'FEB', 'nama' => 'Fakultas Ekonomi dan Bisnis'],
-            ['kode' => 'SPMI', 'nama' => 'Satuan Penjamin Mutu Internal'],
+            ['kode' => 'PusTIK', 'nama' => 'Pustik'],
+            ['kode' => 'KRT', 'nama' => 'Kerumahtanggaan'],
             ['kode' => 'KMS', 'nama' => 'Kemahasiswaan'],
             ['kode' => 'FTIK', 'nama' => 'Fakultas Teknik dan Ilmu Komputer'],
             ['kode' => 'FSIP', 'nama' => 'Fakultas Sastra dan Ilmu Pendidikan'],
-            ['kode' => 'PusTIK', 'nama' => 'PusTIK'],
-            ['kode' => 'IF', 'nama' => 'Informatika'],
-            ['kode' => 'SI', 'nama' => 'Sistem Informasi'],
+            ['kode' => 'FEB', 'nama' => 'Fakultas Ekonomi dan Bisnis'],
         ]);
 
 
+        // USER
         DB::table('users')->insert(
             [
                 [
@@ -45,27 +44,42 @@ class AdminSeeder extends Seeder
                     'password'  => bcrypt('rahasia'),
                     'level'  => 'mahasiswa',
                 ],
+                [
+                    'username'  => 'pustik',
+                    'name'  => 'pustik',
+                    'email' => 'pustik@gmail.com',
+                    'password'  => bcrypt('rahasia'),
+                    'level'  => 'admin',
+                ],
+                [
+                    'username'  => 'baak_ftik',
+                    'name'  => 'Baak FTIK',
+                    'email' => 'baak_ftik@gmail.com',
+                    'password'  => bcrypt('rahasia'),
+                    'level'  => 'baak',
+                ],
             ]
         );
 
+        // mahasiswa
         $faker = Faker::create('id_ID');
         $usedUsernames = [];
-        foreach (range(1, 10) as $index) {
+        foreach (range(1, 5) as $index) {
             do {
                 $username = $faker->numberBetween(17311001, 24129999);
             } while (in_array($username, $usedUsernames));
 
             $usedUsernames[] = $username;
             DB::table('users')->insert([
-                'unitkerja_id' => $faker->numberBetween(1, 8),
+                'unitkerja_id' => null,
                 'name' => $faker->name,
                 'username' =>  $username,
                 'email' => $faker->unique()->safeEmail,
                 'email_verified_at' => null,
                 'password' => bcrypt('password'), // Default password, you can change it.
                 // 'remember_token' => Str::random(10),
-                'level' => $faker->randomElement(['admin', 'mahasiswa', 'baak']),
-                'fakultas_kode' => null,
+                'level' => 'mahasiswa',
+                'fakultas_kode' => $faker->randomElement(['FTIK', 'FSIP', 'FEB']),
                 'no_telepon' => $faker->phoneNumber,
                 'email_pribadi' => $faker->optional()->safeEmail,
                 // 'foto' => $faker->image('public/storage/images', 640, 480, null, false)

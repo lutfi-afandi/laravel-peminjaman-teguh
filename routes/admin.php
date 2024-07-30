@@ -8,16 +8,18 @@ use App\Http\Controllers\Admin\PeminjamanController;
 use App\Http\Controllers\Admin\QrCodeController;
 use App\Http\Controllers\Admin\RuanganController;
 use App\Http\Controllers\Admin\BookingController;
-
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JadwalController;
 use App\Http\Controllers\Admin\ScanQRCodeController;
 use App\Http\Controllers\Admin\UnitkerjaController;
 use App\Http\Controllers\Admin\UserController;
 
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->middleware(['auth_admin'])->name('admin.dashboard');
+
 Route::resource('/master/kegiatan', AdminKegiatanController::class)->middleware(['auth_admin'])->names('admin.kegiatan');
 // Route::resource('/master/kegiatan', AdminKegiatanController::class)->middleware(['auth'])->names('admin.kegiatan');
 Route::resource('/master/barang', BarangController::class)->middleware(['auth_admin'])->names('admin.barang');
-Route::get('barang/excel-export', [BarangController::class,'exportExcel'])->middleware(['auth_admin'])->name('excelExport');
+Route::get('barang/excel-export', [BarangController::class, 'exportExcel'])->middleware(['auth_admin'])->name('excelExport');
 
 Route::get('/CetakQrCode/{ruangan_id}', [BarangController::class, 'QrCode'])->middleware(['auth_admin'])->name('admin.barang.QrCode');
 

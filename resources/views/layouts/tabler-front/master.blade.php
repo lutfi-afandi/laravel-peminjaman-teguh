@@ -15,6 +15,8 @@
     <link href="{{ asset('tabler/css/tabler-vendors.min.css?1692870487') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/css/demo.min.css?1692870487') }}" rel="stylesheet" />
 
+    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />

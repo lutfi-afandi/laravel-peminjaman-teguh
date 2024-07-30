@@ -1,25 +1,30 @@
-@extends('templateAdminLTE/home')
-@section('sub-breadcrumb', 'Data Peminjaman')
+@extends('layouts.tabler-admin.master')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div id="respon">
                 @if (session()->has('msg'))
-                    <div class="alert {{ session('class') }} alert-dark">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        {{ session('msg') }}
+                    <div class="alert alert-important {{ session('class') }} alert-dismissible" role="alert">
+                        <div class="d-flex">
+                            <div></div>
+                            <div>{{ session('msg') }}</div>
+                        </div>
+                        <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                     </div>
                 @endif
             </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6 panel-title">Data Peminjaman</div>
-                        <div class="col-sm-6 card-tools text-right">
-                        </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Data Peminjaman Barang</h3>
+                    <div class="card-actions">
                     </div>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <div class="table-primary">
                         @include('admin.peminjaman.table')
                     </div>

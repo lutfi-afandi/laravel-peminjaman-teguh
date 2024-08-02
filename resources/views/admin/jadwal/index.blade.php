@@ -1,5 +1,4 @@
-@extends('templateAdminLTE/home')
-@section('sub-breadcrumb', 'Jadwal Ruangan')
+@extends('layouts.tabler-admin.master')
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="row">
@@ -12,41 +11,35 @@
                     </div>
                 @endif
             </div> --}}
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6 panel-title">Jadwal Penggunaan Ruangan</div>
-                        <div class="col-sm-6 card-tools text-right">
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Jadwal Penggunaan Ruangan</div>
+                    <div class="card-actions">
                     </div>
                 </div>
-                
+                <div class="card-body">
+                    <div id="calendar"></div>
+                </div>
             </div>
-            
-            <div id="calendar"></div>
-            
         </div>
     </div>
-
-    @push('scripts')
-        
-        <script> 
-            document.addEventListener('DOMContentLoaded', function () {
-                var calendarEl = document.getElementById('calendar');
-                var calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'timeGridWeek',
-                    slotMinTime: '7:00:00',
-                    slotMaxTime: '22:00:00',
-                    events: @json($events),
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                });
-                calendar.render();
-            });
-        </script>
-    @endpush
-
 @endsection
+@push('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                slotMinTime: '7:00:00',
+                slotMaxTime: '22:00:00',
+                events: @json($events),
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+            });
+            calendar.render();
+        });
+    </script>
+@endpush

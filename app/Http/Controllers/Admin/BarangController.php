@@ -23,11 +23,13 @@ class BarangController extends Controller
     public function index()
     {
         $title = "Data Barang";
-        $dataBarang = Barang::with('ruangan.gedung')->get();
-        // dd($dataBarang);
+        $dataBarang = Barang::with('ruangan.gedung')->whereHas('ruangan')->get();
+
+
+        // dd($dataBarang[0]->ruangan->lantai);
         return view('admin.barang.data', compact(
             'title',
-            'dataBarang'
+            'dataBarang',
         ));
     }
 
@@ -42,9 +44,19 @@ class BarangController extends Controller
         $title = "Tambah Data Barang";
         $ruangans = Ruangan::with('gedung')->get();
         $kategoris = Kategori::all();
+        $lastBarang = Barang::orderBy('kode', 'desc')->first();
+        if ($lastBarang) {
+            $lastNumber = intval(substr($lastBarang->kode, 2)); // Mengambil angka dari kode, misal '0001'
+            // dd($lastBarang->kode);
+            $newNumber = $lastNumber + 1;
+            $newKode = 'B-' . str_pad($newNumber, 4, '0', STR_PAD_LEFT); // Membuat kode baru, misal 'B-0002'
+        } else {
+            $newKode = 'B-0001'; // Kode default jika belum ada data
+        }
         return  view('admin.barang.create', compact(
             'title',
             'ruangans',
+            'newKode',
             'kategoris'
         ));
     }
@@ -66,12 +78,12 @@ class BarangController extends Controller
             "kategori_id" => 'required',
             "tgl_perolehan" => '',
             "ruangan_id" => 'required',
-            "penanggung_jawab" => 'required',
+            "penanggung_jawab" => '',
             "harga_perolehan" => '',
             "jumlah" => '',
-            "kondisi" => 'required',
-            "status" => 'required',
-            "deskripsi" => 'required',
+            "kondisi" => '',
+            "status" => '',
+            "deskripsi" => '',
             'foto' => 'image|file|max:2048',
         ]);
 
@@ -139,12 +151,12 @@ class BarangController extends Controller
             "kategori_id" => '',
             "tgl_perolehan" => '',
             "ruangan_id" => 'required',
-            "penanggung_jawab" => 'required',
+            "penanggung_jawab" => '',
             "harga_perolehan" => '',
             "jumlah" => '',
-            "kondisi" => 'required',
+            "kondisi" => '',
             "status" => '',
-            "deskripsi" => 'required',
+            "deskripsi" => '',
             'foto' => 'image|file|max:2048',
         ]);
         $validatedData['tgl_perolehan'] = date('Y-m-d', strtotime($request->tgl_perolehan));
@@ -222,7 +234,7 @@ class BarangController extends Controller
     {
         $title = "QR Code Barang";
         $dataBarang = Barang::where('ruangan_id', $ruangan_id)
-                ->get();
+            ->get();
         return view('admin.barang.QrCode', compact(
             'title',
             'dataBarang'

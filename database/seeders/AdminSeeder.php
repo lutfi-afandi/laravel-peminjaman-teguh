@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
 
         // unit kerja
         DB::table('unitkerjas')->insert([
-            ['kode' => 'PusTIK', 'nama' => 'Pustik'],
+            ['kode' => 'Pustik', 'nama' => 'Pustik'],
             ['kode' => 'KRT', 'nama' => 'Kerumahtanggaan'],
             ['kode' => 'KMS', 'nama' => 'Kemahasiswaan'],
             ['kode' => 'FTIK', 'nama' => 'Fakultas Teknik dan Ilmu Komputer'],
@@ -95,7 +95,7 @@ class AdminSeeder extends Seeder
 
         // Gedung
         $prefix = 'Gedung ';
-        $letters = ['A', 'B', 'C', 'D', 'PU', 'ICT'];
+        $letters = ['A', 'B', 'C', 'D', 'ICT'];
         foreach ($letters as $index => $letter) {
             DB::table('gedungs')->insert([
                 'kode' => 'G' . $letter, // Kode Gedung, misal GA, GB, GC, ...
@@ -112,12 +112,12 @@ class AdminSeeder extends Seeder
         }
 
         // Ruangan
-        foreach (range(1, 20) as $index) {
+        foreach (range(1, 5) as $index) {
             DB::table('ruangans')->insert([
                 'kode_ruangan' => $faker->unique()->word,
-                'nama_ruangan' => $faker->word,
-                'gedung_id' => $faker->numberBetween(1, 5), // Assuming you have 20 gedungs
-                'lantai' => $faker->word,
+                'nama_ruangan' => $faker->numberBetween(1, 4) . '0' . $faker->numberBetween(1, 4) . $faker->randomElement($letters),
+                'gedung_id' => $faker->numberBetween(1, 4), // Assuming you have 20 gedungs
+                'lantai' => $faker->numberBetween(1, 5),
                 'kapasitas' => $faker->numberBetween(10, 100),
                 'luas' => $faker->randomFloat(2, 20, 200),
                 'tipe' => $faker->word,

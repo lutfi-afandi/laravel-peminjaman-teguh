@@ -86,8 +86,8 @@
     <div class="dropdown-menu show">
         <div class="dropdown-menu-columns">
             <div class="dropdown-menu-column">
-                <a class="dropdown-item" href="{{ route('admin.gedung.index') }}">
-                    Gedung
+                <a class="dropdown-item" href="{{ route('admin.ruangan.index') }}">
+                    Ruangan
                 </a>
             </div>
         </div>
@@ -95,8 +95,8 @@
     <div class="dropdown-menu show">
         <div class="dropdown-menu-columns">
             <div class="dropdown-menu-column">
-                <a class="dropdown-item" href="{{ route('admin.ruangan.index') }}">
-                    Ruangan
+                <a class="dropdown-item" href="{{ route('admin.gedung.index') }}">
+                    Gedung
                 </a>
             </div>
         </div>

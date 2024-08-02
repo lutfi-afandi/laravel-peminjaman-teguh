@@ -47,8 +47,8 @@ class GedungController extends Controller
         $validatedData  = $request->validate([
             'nama'     => 'required|max:255',
             'kode'     => 'required|unique:gedungs',
-            'sumber_dana'     => '',
-            'besar_dana'     => '',
+            // 'sumber_dana'     => '',
+            // 'besar_dana'     => '',
             'tahun'     => '',
             'lokasi'     => '',
             'foto' => 'image|file|max:2048',
@@ -58,7 +58,7 @@ class GedungController extends Controller
         // $validatedData['']
 
         if ($request->file('foto')) {
-            
+
             $validatedData['foto'] = $validatedData['kode'] . "-" . date('His') . "." . $request->file('foto')->getClientOriginalExtension();
             $request->file('foto')->storeAs('public/gedungs', $validatedData['foto']);
         }

@@ -26,7 +26,7 @@ class BarangSeeder extends Seeder
         DB::table('barangs')->insert(
             [
                 [
-                    'kode'  => 'B001',
+                    'kode'  => 'B-0001',
                     'nama'  => 'Barang 1',
                     'jumlah'  => 1,
                     'harga'  => 1000,
@@ -39,12 +39,12 @@ class BarangSeeder extends Seeder
 
         for ($i = 2; $i <= 10; $i++) {
             DB::table('barangs')->insert([
-                'kode' => 'B' . str_pad($i, 4, '0', STR_PAD_LEFT),
+                'kode' => 'B-' . str_pad($i, 4, '0', STR_PAD_LEFT),
                 'nama' => $barang[rand(0, count($barang))],
                 'harga' => $faker->randomFloat(2, 100, 10000),
                 'jumlah' => $faker->randomNumber(1, 5),
                 'tersedia' => $faker->randomElement([0, 1]),
-                'ruangan_id' => $faker->numberBetween(1, 5),
+                'ruangan_id' => $faker->numberBetween(1, 3),
                 'kategori_id' => $faker->numberBetween(1, 5),
                 'penanggung_jawab' => $faker->name,
                 'tgl_perolehan' => $faker->date,

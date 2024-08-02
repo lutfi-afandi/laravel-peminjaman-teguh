@@ -1,30 +1,27 @@
-@extends('templateAdminLTE/home')
-@section('sub-breadcrumb', 'Data Unit Kerja')
+@extends('layouts.tabler-admin.master')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div id="respon">
-
             </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-12 card-tools text-right">
-                            <a href="{{ route('admin.unit.index') }}" class="btn btn-xs btn-warning btn-add">
-                                <i class="fa fa-arrow-left"></i> kembali
-                            </a>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Form Tambah Unit Kerja </h3>
+                    <div class="card-actions">
+                        <a href="{{ route('admin.unit.index') }}" class="btn btn-xs btn-warning btn-add">
+                            <i class="fa fa-arrow-left"></i> kembali
+                        </a>
                     </div>
                 </div>
-                <div class="panel-body">
+                <form action="{{ route('admin.unit.store') }}" method="POST" class="form-horizontal"
+                    enctype="multipart/form-data">
+                    <div class="card-body">
 
-                    <form action="{{ route('admin.unit.store') }}" method="POST" class="form-horizontal"
-                        enctype="multipart/form-data">
                         @csrf
                         {{-- <div class="form-group"> --}}
                         <div class="row">
                             <div class="col-md-6 @error('kode') has-error @enderror">
-                                <label for="kode" class="control-label">Kode Unit Kerja</label>
+                                <label for="kode" class="form-label">Kode Unit Kerja</label>
                                 <input type="text" class="form-control" id="kode" name="kode"
                                     placeholder="Kode Unit Kerja" value="{{ old('kode') }}" required>
                                 @error('kode')
@@ -35,7 +32,7 @@
                                 {{-- <small class="text-muted form-help-text">Example block-level help text here.</small> --}}
                             </div>
                             <div class="col-md-6  @error('nama') has-error @enderror">
-                                <label for="nama" class=" control-label">Nama Unit Kerja</label>
+                                <label for="nama" class=" form-label">Nama Unit Kerja</label>
                                 <input type="text" class="form-control" id="nama" name="nama"
                                     placeholder="Nama Unit Kerja" value="{{ old('nama') }}" required>
                                 @error('nama')
@@ -45,19 +42,16 @@
                                 @enderror
                             </div>
                         </div>
-                        
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
 
-                </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                    </div>
+                </form>
 
             </div>
+
         </div>
     </div>
 

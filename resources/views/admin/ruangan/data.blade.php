@@ -1,32 +1,32 @@
-@extends('templateAdminLTE/home')
-@section('sub-breadcrumb', 'Data Ruangan')
+@extends('layouts.tabler-admin.master')
 @section('content')
     <div class="row">
         <div class="col-md-12">
-            <div id="respon">
-                @if (session()->has('msg'))
-                    <div class="alert {{ session('class') }} alert-dark">
-                        <button type="button" class="close" data-dismiss="alert">×</button>
-                        {{ session('msg') }}
-                    </div>
-                @endif
-            </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-6 panel-title">Data Ruangan</div>
-                        <div class="col-sm-6 card-tools text-right">
 
-                            <a href="{{ route('admin.ruangan.create') }}" class="btn btn-xs btn-primary btn-add">
-                                <i class="fa fa-plus"></i> Tambah Data
-                            </a>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">Data Ruangan</div>
+                    <div class="card-actions">
+
+                        <a href="{{ route('admin.ruangan.create') }}" class="btn btn-md btn-primary btn-add">
+                            <i class="fa fa-plus"></i>&nbsp; Tambah Data
+                        </a>
                     </div>
                 </div>
-                <div class="panel-body">
-                    <div class="table-light">
-                        @include('admin.ruangan.table')
+                <div class="card-body">
+                    <div id="respon">
+                        @if (session()->has('msg'))
+                            <div class="alert alert-important alert-{{ session('class') }} alert-dismissible"
+                                role="alert">
+                                <div class="d-flex">
+                                    <div></div>
+                                    <div>{{ session('msg') }}</div>
+                                </div>
+                                <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                            </div>
+                        @endif
                     </div>
+                    @include('admin.ruangan.table')
                 </div>
             </div>
         </div>
@@ -60,9 +60,6 @@
                             $('#modal_show').modal('show');
                         })
                 })
-
-
-
             });
         </script>
     @endpush

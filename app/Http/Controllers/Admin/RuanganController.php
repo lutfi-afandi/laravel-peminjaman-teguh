@@ -19,14 +19,13 @@ class RuanganController extends Controller
     public function index()
     {
         $title = "Data Ruangan";
-        $dataRuangan = Ruangan::with('gedung', 'unitkerja')->get();
+        $dataRuangan = Ruangan::with('gedung', 'unitkerja')->whereHas('gedung')->whereHas('unitkerja')->get();
         // $dataRuangan = Ruangan::whereHas('gedung', function ($query) {
         //     $query->whereNotNull('id');
         // })->whereHas('unitkerja', function ($query) {
         //     $query->whereNotNull('id');
         // })->get();
-
-        // dd($dataRuangan);
+        // dd($dataRuangan[1]->gedung->kode);
         return view('admin.ruangan.data', compact(
             'title',
             'dataRuangan'
@@ -139,9 +138,9 @@ class RuanganController extends Controller
             'luas'     => '',
             'tipe'     => '',
             'kondisi'     => 'required',
-            'bisa_pinjam'     => 'required',
+            'bisa_pinjam'     => '',
             'foto_ruangan' => 'image|file|max:2048',
-            'status'     => 'required',
+            'status'     => '',
         ]);
 
         if ($request->file('foto_ruangan')) {

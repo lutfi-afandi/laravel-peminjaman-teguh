@@ -1,98 +1,95 @@
-@extends('templateAdminLTE/home')
-@section('sub-breadcrumb', 'Data Gedung')
+@extends('layouts.tabler-admin.master')
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div id="respon">
 
             </div>
-            <div class="panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-sm-12 card-tools text-right">
-                            <a href="{{ route('admin.gedung.index') }}" class="btn btn-xs btn-warning btn-add">
-                                <i class="fa fa-arrow-left"></i> kembali
-                            </a>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-actions">
+                        <a href="{{ route('admin.gedung.index') }}" class="btn btn-xs btn-warning btn-add">
+                            <i class="fa fa-arrow-left"></i> kembali
+                        </a>
                     </div>
                 </div>
-                <div class="panel-body">
-
-                    <form action="{{ route('admin.gedung.update', $dataGedung->id) }}" method="POST"
-                        class="form-horizontal" enctype="multipart/form-data">
-                        @method('put')
+                <form action="{{ route('admin.gedung.update', $dataGedung->id) }}" method="POST" class="form-horizontal"
+                    enctype="multipart/form-data">
+                    @method('put')
+                    <div class="card-body">
                         @csrf
                         {{-- <div class="form-group"> --}}
                         <div class="row">
-                            <div class="col-md-6 @error('kode') has-error @enderror">
-                                <label for="kode" class="control-label">Kode Gedung</label>
-                                <input type="text" class="form-control" id="kode" name="kode"
-                                    placeholder="Kode Gedung" value="{{ old('kode', $dataGedung->kode) }}" readonly>
+                            <div class="col-md-6 mb-2">
+                                <label for="kode" class="form-label">Kode Gedung</label>
+                                <input type="text" class="form-control @error('kode') is-invalid @enderror"
+                                    id="kode" name="kode" placeholder="Kode Gedung"
+                                    value="{{ old('kode', $dataGedung->kode) }}" readonly>
                                 @error('kode')
-                                    <small class="form-message">
+                                    <small class="invalid-feedback">
                                         {{ $message }}
                                     </small>
                                 @enderror
                                 {{-- <small class="text-muted form-help-text">Example block-level help text here.</small> --}}
                             </div>
-                            <div class="col-md-6  @error('nama') has-error @enderror">
-                                <label for="nama" class=" control-label">Nama Gedung</label>
-                                <input type="text" class="form-control" id="nama" name="nama"
-                                    placeholder="Nama Gedung" value="{{ old('nama', $dataGedung->nama) }}" required>
+                            <div class="col-md-6 mb-2 ">
+                                <label for="nama" class=" form-label">Nama Gedung</label>
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                    id="nama" name="nama" placeholder="Nama Gedung"
+                                    value="{{ old('nama', $dataGedung->nama) }}" required>
                                 @error('nama')
-                                    <small class="form-message">
+                                    <small class="invalid-feedback">
                                         {{ $message }}
                                     </small>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6  @error('jumlah_lantai') has-error @enderror">
-                                <label for="jumlah_lantai" class="control-label">Jumlah Lantai</label>
-                                <input type="number" class="form-control" id="jumlah_lantai" name="jumlah_lantai"
-                                    placeholder="Jumlah lantai" required
+
+                            <div class="col-md-6 mb-2 ">
+                                <label for="jumlah_lantai" class="form-label">Jumlah Lantai</label>
+                                <input type="number" class="form-control @error('jumlah_lantai') is-invalid @enderror"
+                                    id="jumlah_lantai" name="jumlah_lantai" placeholder="Jumlah lantai" required
                                     value="{{ old('jumlah_lantai', $dataGedung->jumlah_lantai) }}">
                                 @error('jumlah_lantai')
-                                    <small class="form-message">
+                                    <small class="invalid-feedback">
                                         {{ $message }}
                                     </small>
                                 @enderror
                             </div>
-                            <div class="col-md-6  @error('lokasi') has-error @enderror">
-                                <label for="lokasi" class="control-label">Lokasi</label>
-                                <input type="text" class="form-control" id="lokasi" name="lokasi"
-                                    placeholder="Lokasi" value="{{ old('lokasi', $dataGedung->lokasi) }}">
+                            <div class="col-md-6 mb-2 ">
+                                <label for="lokasi" class="form-label">Lokasi</label>
+                                <input type="text" class="form-control @error('lokasi') is-invalid @enderror"
+                                    id="lokasi" name="lokasi" placeholder="Lokasi"
+                                    value="{{ old('lokasi', $dataGedung->lokasi) }}">
                                 @error('lokasi')
-                                    <small class="form-message">
+                                    <small class="invalid-feedback">
                                         {{ $message }}
                                     </small>
                                 @enderror
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6  @error('besar_dana') has-error @enderror">
-                                <label for="besar_dana" class=" control-label">Besar Dana</label>
-                                <input type="text" class="form-control" id="besar_dana" name="besar_dana"
-                                    placeholder="Jumlah dana perolehan"
+                            {{-- <div class="col-md-6 mb-2 ">
+                                <label for="besar_dana" class=" form-label">Besar Dana</label>
+                                <input type="text" class="form-control @error('besar_dana') is-invalid @enderror"
+                                    id="besar_dana" name="besar_dana" placeholder="Jumlah dana perolehan"
                                     value="{{ old('besar_dana', $dataGedung->besar_dana) }}">
                             </div>
-                            <div class="col-md-6  @error('sumber_dana') has-error @enderror">
-                                <label for="sumber_dana" class=" control-label">Sumber Dana</label>
-                                <input type="text" class="form-control" id="sumber_dana" name="sumber_dana"
-                                    placeholder="Sumber dana" value="{{ old('sumber_dana', $dataGedung->sumber_dana) }}">
+                            <div class="col-md-6 mb-2 ">
+                                <label for="sumber_dana" class=" form-label">Sumber Dana</label>
+                                <input type="text" class="form-control @error('sumber_dana') is-invalid @enderror"
+                                    id="sumber_dana" name="sumber_dana" placeholder="Sumber dana"
+                                    value="{{ old('sumber_dana', $dataGedung->sumber_dana) }}">
                                 @error('sumber_dana')
-                                    <small class="form-message">
+                                    <small class="invalid-feedback">
                                         {{ $message }}
                                     </small>
                                 @enderror
-                            </div>
-                        </div>
+                            </div> --}}
 
-                        <div class="row">
-                            <div class="col-md-6  @error('tahun') has-error @enderror">
-                                <label for="tahun" class=" control-label">Tahun Perolehan</label>
-                                <select name="tahun" id="tahun" class="form-control">
+                            <div class="col-md-6 mb-2 ">
+                                <label for="tahun" class=" form-label">Tahun Perolehan</label>
+                                <select name="tahun" id="tahun"
+                                    class="form-control @error('tahun') is-invalid @enderror">
                                     <option value="">-Pilih Tahun-</option>
                                     @for ($year = date('Y'); $year >= 2000; $year--)
                                         <option value="{{ $year }}"
@@ -101,23 +98,17 @@
                                     @endfor
                                 </select>
                                 @error('tahun')
-                                    <small class="form-message">
+                                    <small class="invalid-feedback">
                                         {{ $message }}
                                     </small>
                                 @enderror
                             </div>
-                            <div class="col-md-6">
-                                <label for="foto" class="control-label">Foto Gedung</label>
-                                <label class="custom-file px-file" for="success-input-4">
-                                    <input type="file" id="success-input-4" class="custom-file-input" name="foto"
-                                        accept="image/*" onchange="previewImage()">
-                                    <span class="custom-file-control form-control">Pilih file...</span>
-                                    <div class="px-file-buttons">
-                                        <button type="button" class="btn btn-xs px-file-clear">Clear</button>
-                                        <button type="button"
-                                            class="btn btn-primary btn-xs px-file-browse">Browse</button>
-                                    </div>
-                                </label>
+                            <div class="col-md-6 mb-2">
+                                <label for="foto" class="form-label">Foto Gedung</label>
+                                <input type="file" id="success-input-4"
+                                    class="form-control  @error('foto') is-invalid @enderror" name="foto"
+                                    accept="image/*" onchange="previewImage()">
+
                                 @if ($dataGedung->foto)
                                     <img src="{{ asset('storage/gedungs/' . $dataGedung->foto) }}"
                                         class="img-preview img-fluid mb-3 d-block" width="250px">
@@ -127,14 +118,12 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                            </div>
-                        </div>
-                    </form>
 
-                </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
+                    </div>
+                </form>
 
             </div>
         </div>

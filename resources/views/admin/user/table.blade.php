@@ -16,12 +16,12 @@
             <tr class="odd gradeX">
                 <td class="center">{{ $loop->iteration }}</td>
                 <td class="center">
-                    <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-primary btn-xs btn-update">
+                    <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-primary btn-sm btn-update">
                         <i class="fa fa-edit"></i>
                     </a>
 
                     @if ($user->id !== auth()->id())
-                        <a href="javascript:;" data-id="{{ $user->id }}" class="btn btn-danger btn-xs btn-delete">
+                        <a href="javascript:;" data-id="{{ $user->id }}" class="btn btn-danger btn-sm btn-delete">
                             <i class="fa fa-trash"></i>
                         </a>
                     @endif
@@ -37,3 +37,10 @@
         @endforeach
     </tbody>
 </table>
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('#datatables').DataTable();
+        });
+    </script>
+@endpush

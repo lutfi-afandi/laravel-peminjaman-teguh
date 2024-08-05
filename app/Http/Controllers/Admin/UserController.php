@@ -20,7 +20,7 @@ class UserController extends Controller
     {
         $title = "Data User";
         $dataUser = User::with('unitkerja')->get();
-        
+
         // dd($dataUser);
         return view('admin.user.data', compact(
             'title',
@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $title = "Tambah User";
         $unitKerja = Unitkerja::all();
-        return  view('admin.user.create', compact('title','unitKerja'));
+        return  view('admin.user.create', compact('title', 'unitKerja'));
     }
 
     /**
@@ -55,12 +55,17 @@ class UserController extends Controller
             'password'     => 'required|min:8',
             'level'     => 'required',
             'no_telepon'     => 'required',
-            'unitkerja_id'     => 'required',
+            'unitkerja_id'     => '',
             'foto' => 'image|file|max:2048'
         ]);
         // dd($request->file('foto')->getExtension());
         // $validatedData['']
-
+        // Tambahkan unitkerja_id ke array validatedData jika level adalah mahasiswa
+        if (strtolower($request->level) != 'mahasiswa') {
+            $validatedData['unitkerja_id'] = $request->validate([
+                'unitkerja_id' => 'required'
+            ])['unitkerja_id'];
+        }
         if ($request->file('foto')) {
             Storage::makeDirectory('public/users');
             $validatedData['foto'] = $validatedData['username'] . "-" . date('His') . "." . $request->file('foto')->getClientOriginalExtension();
@@ -105,7 +110,7 @@ class UserController extends Controller
         $dataUser = User::with('unitkerja')->where("id", $id)->first();
         $unitKerja = Unitkerja::all();
         // dd($dataGedung->id);
-        $view = view('admin.user.update', compact('title', 'dataUser','unitKerja'));
+        $view = view('admin.user.update', compact('title', 'dataUser', 'unitKerja'));
         return $view;
     }
 
@@ -132,12 +137,12 @@ class UserController extends Controller
         // dd($validatedData);
 
 
-        if($request->password) {
+        if ($request->password) {
             // $validatedData['password'] = $request->password;
             $validatedData['password'] = Hash::make($request->password);
         }
 
-        if($request->unitkerja_id) {
+        if ($request->unitkerja_id) {
             $validatedData['unitkerja_id'] = $request->unitkerja_id;
         }
 
@@ -149,11 +154,9 @@ class UserController extends Controller
             // Jika username sudah digunakan dan bukan milik pengguna yang sedang diupdate
             if ($existingUser && $existingUser->id !== $dataUser->id) {
                 return redirect()->back()->withInput()->withErrors(['username' => 'Username sudah terpakai']);
-            } else 
-            {
+            } else {
                 $validatedData['username'] = $request->username;
             }
-            
         }
 
         // Jika email yang dimasukkan bukan milik pengguna yang sedang diupdate
@@ -164,8 +167,7 @@ class UserController extends Controller
             // Jika email sudah digunakan dan bukan milik pengguna yang sedang diupdate
             if ($existingEmail && $existingEmail->id !== $dataUser->id) {
                 return redirect()->back()->withInput()->withErrors(['email' => 'Email sudah terpakai']);
-            } else 
-            {
+            } else {
                 $validatedData['email'] = $request->email;
             }
         }
@@ -180,7 +182,7 @@ class UserController extends Controller
             $request->file('foto')->storeAs('public/users', $validatedData['foto']);
         }
 
-        
+
         // $validatedData['password'] = Hash::make($validatedData['password']);
         $dataUser->update($validatedData);
 
@@ -201,6 +203,6 @@ class UserController extends Controller
             Storage::delete('public/users/' . $user->foto);
         }
         User::where("id", $user->id)->delete();
-        return back()->with(['msg' => 'Berhasil Menghapus User', 'class' => 'alert-success']);
+        return back()->with(['msg' => 'Berhasil Menghapus User', 'class' => 'success']);
     }
 }

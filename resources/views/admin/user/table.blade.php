@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($dataUser as $user)
+        @foreach ($dataMahasiswa as $user)
             <tr class="odd gradeX">
                 <td class="center">{{ $loop->iteration }}</td>
                 <td class="center">

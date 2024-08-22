@@ -1,12 +1,12 @@
-@extends('templateAdminLTE/home')
+@extends('layouts.tabler-admin.master')
 @section('sub-breadcrumb', 'Halaman Perbarui password')
 @section('content')
     <div class="row justify-content-center">
         <div class="col-md-6 col-md-offset-3">
-            <div class="panel">
-                <div class="panel-heading">Perbarui Password</div>
+            <div class="card">
+                <div class="card-header">Perbarui Password</div>
 
-                <div class="panel-body">
+                <div class="card-body">
                     @if (session('error'))
                         <div class="alert alert-danger">
                             {{ session('error') }}
@@ -19,7 +19,7 @@
                     @endif
                     <form class="form-horizontal" method="POST" action="{{ route('perbaruipassword_new') }}">
                         @csrf
-                        <div class="form-group row">
+                        <div class="form-group mt-2 row">
                             <label for="new-password" class="col-md-4 control-label">Password Lama</label>
 
                             <div class="col-md-6">
@@ -34,7 +34,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group mt-2 row">
                             <label for="new-password" class="col-md-4 control-label">Password Baru</label>
                             <div class="col-md-6">
                                 <input id="new_password" type="password"
@@ -48,7 +48,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group mt-2 row">
                             <label for="new-password-confirm" class="col-md-4 control-label">Konfirmasi Password
                                 Baru</label>
 
@@ -64,11 +64,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group mt-2 row">
                             <div class="col-md-6 col-md-offset-4">
-                                <a href="{{ route('home.index') }}" class="btn btn-xs btn-default"><i
+                                <a href="{{ route('home.index') }}" class="btn btn-sm btn-default"><i
                                         class="fa fa-arrow-left"></i> Kembali</a>
-                                <button type="submit" class="btn btn-xs btn-primary">
+                                <button type="submit" class="btn btn-sm btn-primary">
                                     <i class="fa fa-edit"></i> Perbarui Password
                                 </button>
                             </div>

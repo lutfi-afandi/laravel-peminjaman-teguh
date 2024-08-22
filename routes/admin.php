@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RuanganController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JadwalController;
+use App\Http\Controllers\Admin\MahasiswaController;
 use App\Http\Controllers\Admin\ScanQRCodeController;
 use App\Http\Controllers\Admin\UnitkerjaController;
 use App\Http\Controllers\Admin\UserController;
@@ -54,5 +55,8 @@ Route::get('/master/laporan/cetak', [BookingController::class, 'cetakLaporan'])-
 
 
 Route::resource('/master/user', UserController::class)->middleware(['auth_admin'])->names('admin.user');
+Route::post('/master/import_mahasiswa', [UserController::class, 'import_mahasiswa'])->middleware(['auth_admin'])->name('admin.import_mahasiswa');
+Route::get('/master/list_mahasiswa', [UserController::class, 'list_mahasiswa'])->middleware(['auth_admin'])->name('admin.list_mahasiswa');
+Route::resource('/master/mahasiswa', MahasiswaController::class)->middleware(['auth_admin'])->names('admin.mahasiswa');
 
 Route::resource('/master/unit', UnitkerjaController::class)->middleware(['auth_admin'])->names('admin.unit');

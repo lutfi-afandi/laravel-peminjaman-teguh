@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $title = "Data User";
-        $dataUser = User::with('unitkerja')->get();
+        $dataUser = User::with('unitkerja')->where('level', '!=', 'mahasiswa')->get();
 
         // dd($dataUser);
         return view('admin.user.data', compact(
@@ -204,5 +204,17 @@ class UserController extends Controller
         }
         User::where("id", $user->id)->delete();
         return back()->with(['msg' => 'Berhasil Menghapus User', 'class' => 'success']);
+    }
+
+    public function list_mahasiwa()
+    {
+        $title = "Data Mahasiswa";
+        $uriProdi = env('URL_SISFO') . '/api/programstudi.php?id_prodi=ALL';
+        $dataProdi = json_decode(file_get_contents($uriProdi));
+    }
+
+    public function import_mahasiwa()
+    {
+        // 
     }
 }

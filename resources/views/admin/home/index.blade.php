@@ -1,7 +1,7 @@
 @extends('layouts.tabler-admin.master')
 @section('content')
     <div class="row row-cards">
-        <div class="col-sm-6 col-lg-6">
+        {{-- <div class="col-sm-6 col-lg-6">
             <div class="card card-sm">
                 <div class="card-body">
                     <div class="row align-items-center">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     <div class="row mt-3">

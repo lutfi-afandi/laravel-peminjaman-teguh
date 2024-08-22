@@ -27,7 +27,12 @@ class User extends Authenticatable
         'email_pribadi',
         'no_telepon',
         'unitkerja_id',
-        'foto'
+        'foto',
+        'kode_fakultas',
+        'kode_prodi',
+        'nama_fakultas',
+        'nama_prodi',
+        'angkatan',
     ];
 
     /**

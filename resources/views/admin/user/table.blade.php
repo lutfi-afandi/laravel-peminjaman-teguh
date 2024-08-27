@@ -6,8 +6,6 @@
             <th>Nama</th>
             <th>Username</th>
             <th>Email</th>
-            <th>Level</th>
-            <th>Unit Kerja</th>
             <th>No Telepon</th>
         </tr>
     </thead>
@@ -29,8 +27,6 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->username }}</td>
                 <td>{{ $user->email }}</td>
-                <td>{{ $user->level }}</td>
-                <td>{{ $user->unitkerja->kode ?? '-' }}</td>
                 <td>{{ $user->no_telepon }}</td>
 
             </tr>

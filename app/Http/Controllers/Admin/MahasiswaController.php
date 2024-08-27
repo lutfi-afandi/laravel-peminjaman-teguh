@@ -42,6 +42,7 @@ class MahasiswaController extends Controller
                 ->get();
         } else {
             $dataMahasiswa = User::limit(0)->get();
+            $prodiSelect = false;
             $idProdi = false;
             $angkatan = false;
         }
